@@ -27,20 +27,25 @@ const PieChart: React.FC<PieChartProps> = ({
   dataKey = "value",
   nameKey = "name"
 }) => {
+  // Calculate the total for percentage calculation
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+
   const renderCustomizedLabel = ({ 
     cx, 
     cy, 
     midAngle, 
     innerRadius, 
     outerRadius, 
-    percent 
+    percent, 
+    index 
   }: any) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.66;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    return percent * 100 > 5 ? (
+    // Only show label if slice is big enough (>5%)
+    return percent > 0.05 ? (
       <text 
         x={x} 
         y={y} 
@@ -48,13 +53,18 @@ const PieChart: React.FC<PieChartProps> = ({
         textAnchor={x > cx ? 'start' : 'end'} 
         dominantBaseline="central"
         fontSize={12}
+        className="print:text-[5pt]"
+        fontWeight="bold"
       >
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     ) : null;
   };
 
-  const formatTooltip = (value: number) => [`$${value.toLocaleString()}`, ''];
+  const formatTooltip = (value: number, name: string) => {
+    const percentage = ((value / total) * 100).toFixed(1);
+    return [`$${value.toLocaleString()} (${percentage}%)`, name];
+  };
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -69,13 +79,39 @@ const PieChart: React.FC<PieChartProps> = ({
           fill="#8884d8"
           dataKey={dataKey}
           nameKey={nameKey}
+          // Improve rendering for print
+          strokeWidth={1}
+          stroke="#ffffff"
+          isAnimationActive={false} // Disable animation for better export
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            <Cell 
+              key={`cell-${index}`} 
+              fill={colors[index % colors.length]} 
+              className="print:opacity-100" // Ensure cells are visible in print
+            />
           ))}
         </Pie>
-        <Tooltip formatter={formatTooltip} />
-        <Legend />
+        <Tooltip 
+          formatter={formatTooltip}
+          contentStyle={{ fontSize: '12px' }}
+          wrapperStyle={{ zIndex: 1000 }}
+          itemStyle={{ padding: '2px 0' }}
+        />
+        <Legend 
+          layout="horizontal"
+          verticalAlign="bottom"
+          align="center"
+          wrapperStyle={{ 
+            fontSize: '12px', 
+            paddingTop: '20px'
+          }}
+          className="print:text-[5pt]"
+          formatter={(value, entry, index) => {
+            const percentage = ((data[index]?.value / total) * 100).toFixed(1);
+            return <span className="print:text-[5pt]">{`${value} (${percentage}%)`}</span>;
+          }}
+        />
       </RechartsPieChart>
     </ResponsiveContainer>
   );
