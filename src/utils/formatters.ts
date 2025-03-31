@@ -8,5 +8,17 @@ export const formatCurrency = (value: number | string) => {
   if (value === 0 || value === '-') {
     return '$-';
   }
-  return `$${Number(value).toLocaleString()}`;
+  
+  const numValue = Number(value);
+  
+  if (isNaN(numValue)) {
+    return '$-';
+  }
+  
+  // Handle negative numbers
+  if (numValue < 0) {
+    return `-$${Math.abs(numValue).toLocaleString()}`;
+  }
+  
+  return `$${numValue.toLocaleString()}`;
 };

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import DataTable from './DataTable';
+import { formatCurrency } from '@/utils/formatters';
 
 interface CashFlowStatementProps {
   cashFlowData: {
@@ -23,12 +24,6 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
   const totalOutflow = cashFlowData.reduce((sum, item) => sum + item.Total, 0);
   const netCashFlow = totalRevenue - totalOutflow;
 
-  // Format currency
-  const formatCurrency = (value: number | undefined) => {
-    if (value === undefined || value === 0) return '-';
-    return `$${value.toLocaleString()}`;
-  };
-
   return (
     <div className="cash-flow-statement">
       <h3 className="text-xl font-semibold mb-4">Cash Flow Statement (April 2025 - March 2026)</h3>
@@ -50,9 +45,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               <tr key={index}>
                 <td>{month.name}</td>
                 <td className="text-right text-green-600">{formatCurrency(month.Revenue)}</td>
-                <td className="text-right">{formatCurrency(month.Variable)}</td>
-                <td className="text-right">{formatCurrency(month.Fixed)}</td>
-                <td className="text-right">{formatCurrency(month.CAPEX)}</td>
+                <td className="text-right text-red-500">{formatCurrency(month.Variable)}</td>
+                <td className="text-right text-red-500">{formatCurrency(month.Fixed)}</td>
+                <td className="text-right text-red-500">{month.CAPEX ? formatCurrency(month.CAPEX) : '$-'}</td>
                 <td className={`text-right ${month.NetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                   {formatCurrency(month.NetCashFlow)}
                 </td>
@@ -62,9 +57,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
             <tr className="font-semibold bg-gray-50">
               <td>Total</td>
               <td className="text-right text-green-600">{formatCurrency(totalRevenue)}</td>
-              <td className="text-right">{formatCurrency(totalVariable)}</td>
-              <td className="text-right">{formatCurrency(totalFixed)}</td>
-              <td className="text-right">{formatCurrency(totalCapex)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalVariable)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalFixed)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalCapex)}</td>
               <td className={`text-right ${netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {formatCurrency(netCashFlow)}
               </td>
@@ -89,15 +84,16 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           <p className="text-sm font-semibold">Key Insights</p>
           <ul className="text-sm mt-1 list-disc list-inside">
             <li>Negative cash flow in early months (Apr-Sep)</li>
-            <li>Peak outflow in May: CAPEX investments</li>
-            <li>Positive cash flow begins October 2025</li>
+            <li>Peak outflow: CAPEX investments in May</li>
+            <li>Revenue starts in June, increases from August</li>
+            <li>Positive cash flow begins December 2025</li>
           </ul>
         </div>
         
         <div className="p-3 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Financial Health</p>
           <p className="text-sm mt-1">
-            By fiscal year end, the farm achieves a strong positive net cash position of $164,035, demonstrating financial sustainability despite heavy upfront investments.
+            Despite initial negative cash flow due to startup investments and seasonal expenses, the farm achieves a strong positive net cash position by fiscal year end, demonstrating financial sustainability.
           </p>
         </div>
       </div>

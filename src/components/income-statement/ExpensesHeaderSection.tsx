@@ -4,7 +4,7 @@ import { TableRow, TableCell } from "@/components/ui/table";
 
 const ExpensesHeaderSection: React.FC = () => {
   return (
-    <TableRow className="border-b border-gray-300">
+    <TableRow className="border-b border-gray-300 bg-gray-100">
       <TableCell className="font-bold border border-gray-300 p-2" colSpan={2}>Operating Expenses</TableCell>
     </TableRow>
   );
