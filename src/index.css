@@ -90,7 +90,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans text-sm;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -106,15 +106,15 @@
   }
   
   .slide-content {
-    @apply p-8;
+    @apply p-6;
   }
   
   .slide-header {
-    @apply border-b border-gray-200 pb-4 mb-6;
+    @apply border-b border-gray-200 pb-3 mb-4;
   }
   
   .slide-title {
-    @apply text-2xl md:text-3xl font-bold text-primary mb-2 font-playfair;
+    @apply text-xl md:text-2xl font-bold text-primary mb-2 font-playfair;
   }
   
   .table-container {
@@ -122,15 +122,15 @@
   }
   
   .data-table {
-    @apply min-w-full border-collapse;
+    @apply min-w-full border-collapse text-sm;
   }
   
   .data-table th {
-    @apply bg-gray-50 text-left px-4 py-2 border-b-2 border-gray-200 font-semibold text-gray-700;
+    @apply bg-gray-50 text-left px-3 py-1.5 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
   }
   
   .data-table td {
-    @apply border-b border-gray-200 px-4 py-2;
+    @apply border-b border-gray-200 px-3 py-1.5 text-sm;
   }
   
   .data-table tr:hover {
@@ -179,7 +179,20 @@
     }
     
     .slide-content {
-      padding: 10mm;
+      padding: 8mm;
+    }
+    
+    .slide-title {
+      @apply text-lg;
+    }
+    
+    .data-table {
+      @apply text-xs;
+    }
+    
+    .data-table th,
+    .data-table td {
+      @apply py-0.5 px-1;
     }
   }
 }
