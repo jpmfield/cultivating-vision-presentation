@@ -101,7 +101,7 @@
 @layer components {
   .slide-container {
     @apply max-w-5xl mx-auto mb-16 bg-white rounded-lg shadow-lg overflow-hidden;
-    /* Changed aspect ratio to match A4 landscape */
+    /* A4 landscape aspect ratio */
     aspect-ratio: 297 / 210;
   }
   
@@ -126,11 +126,11 @@
   }
   
   .data-table th {
-    @apply bg-gray-50 text-left px-3 py-1.5 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
+    @apply bg-gray-50 text-left px-3 py-1 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
   }
   
   .data-table td {
-    @apply border-b border-gray-200 px-3 py-1.5 text-sm;
+    @apply border-b border-gray-200 px-3 py-1 text-sm;
   }
   
   .data-table tr:hover {
@@ -158,8 +158,8 @@
       @apply shadow-none mb-0 break-after-page;
       width: 297mm;
       height: 210mm;
-      margin: 0;
-      padding: 0;
+      margin: 0 !important;
+      padding: 0 !important;
       overflow: hidden;
     }
     
@@ -176,23 +176,36 @@
     html, body {
       width: 297mm;
       height: 210mm;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     
     .slide-content {
-      padding: 8mm;
+      padding: 3mm !important;
+      margin: 0 !important;
     }
     
     .slide-title {
-      @apply text-lg;
+      @apply text-sm;
+      margin-bottom: 1mm !important;
     }
     
     .data-table {
-      @apply text-xs;
+      @apply text-[6pt];
     }
     
     .data-table th,
     .data-table td {
-      @apply py-0.5 px-1;
+      @apply py-0 px-0.5;
+    }
+    
+    .grid {
+      gap: 1mm !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6, p {
+      margin-top: 0 !important;
+      margin-bottom: 1mm !important;
     }
   }
 }

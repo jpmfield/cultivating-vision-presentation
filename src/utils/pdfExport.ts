@@ -11,7 +11,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
 
   // Get all slide containers
   const slides = document.querySelectorAll('.slide-container');
-  const pdf = new jsPDF('landscape', 'mm', 'a4'); // Changed to landscape
+  const pdf = new jsPDF('landscape', 'mm', 'a4'); // Using landscape orientation
   let isFirstPage = true;
 
   // Show a loading indicator in the console
@@ -25,7 +25,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
     
     try {
       // Scale factor for better quality
-      const scale = 2;
+      const scale = 3; // Increased scale for better quality
       
       // Create a temporary container with exact A4 landscape dimensions for capturing
       const tempContainer = document.createElement('div');
@@ -42,7 +42,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '10mm';
+      clonedSlide.style.padding = '5mm'; // Reduced padding
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
@@ -103,7 +103,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
     const slides = document.querySelectorAll('.slide-container');
     console.log(`Found ${slides.length} slides to export in full presentation`);
     
-    const pdf = new jsPDF('landscape', 'mm', 'a4'); // Changed to landscape
+    const pdf = new jsPDF('landscape', 'mm', 'a4'); // Using landscape orientation
     let isFirstPage = true;
 
     for (let i = 0; i < slides.length; i++) {
@@ -126,7 +126,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '10mm';
+      clonedSlide.style.padding = '5mm'; // Reduced padding
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
@@ -137,7 +137,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       document.body.appendChild(tempContainer);
       
       // Scale factor for better quality
-      const scale = 2;
+      const scale = 3; // Increased scale for better quality
       
       const canvas = await html2canvas(tempContainer, {
         scale: scale,
