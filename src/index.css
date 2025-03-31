@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 142 69% 25%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 39 97% 85%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 39 97% 65%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -30,24 +31,17 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 142 69% 25%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -97,5 +91,61 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .slide-container {
+    @apply max-w-5xl mx-auto mb-16 bg-white rounded-lg shadow-lg overflow-hidden;
+  }
+  
+  .slide-content {
+    @apply p-8;
+  }
+  
+  .slide-header {
+    @apply border-b border-gray-200 pb-4 mb-6;
+  }
+  
+  .slide-title {
+    @apply text-2xl md:text-3xl font-bold text-primary mb-2;
+  }
+  
+  .table-container {
+    @apply overflow-x-auto;
+  }
+  
+  .data-table {
+    @apply min-w-full border-collapse;
+  }
+  
+  .data-table th {
+    @apply bg-gray-50 text-left px-4 py-2 border-b-2 border-gray-200 font-semibold text-gray-700;
+  }
+  
+  .data-table td {
+    @apply border-b border-gray-200 px-4 py-2;
+  }
+  
+  .data-table tr:hover {
+    @apply bg-gray-50;
+  }
+  
+  .print-button {
+    @apply fixed bottom-5 right-5 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 z-10;
+  }
+  
+  @media print {
+    .print-button {
+      @apply hidden;
+    }
+    
+    .slide-container {
+      @apply shadow-none mb-0 page-break-after-always;
+    }
+    
+    body {
+      @apply bg-white;
+    }
   }
 }

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Add custom colors for our financial charts
+				variable: '#ea384c',
+				fixed: '#FEC6A1',
+				capex: '#1EAEDB',
+				tomatoes: '#FF6B6B',
+				chickens: '#FFD166',
+				cabbage: '#06D6A0',
+				potatoes: '#118AB2',
+				others: '#073B4C',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -89,6 +99,10 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			fontFamily: {
+				sans: ['Arial', 'sans-serif'],
+				serif: ['Georgia', 'serif'],
 			}
 		}
 	},
