@@ -30,50 +30,50 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
 
   return (
     <div className="cash-flow-statement">
-      <h3 className="text-xl font-semibold mb-2 print:text-lg">Cash Flow Statement (April 2025 - March 2026)</h3>
+      <h3 className="text-xl font-semibold mb-1 print:text-sm">Cash Flow Statement (April 2025 - March 2026)</h3>
       
-      <div className="table-container overflow-x-auto print:text-xs">
+      <div className="table-container overflow-x-auto print:text-[8px]">
         <table className="data-table w-full">
           <thead>
             <tr>
-              <th className="w-[12%]">Month</th>
-              <th className="text-right w-[11%]">Revenue</th>
-              <th className="text-right w-[11%]">Variable</th>
-              <th className="text-right w-[11%]">Fixed</th>
-              <th className="text-right w-[11%]">Marketing</th>
-              <th className="text-right w-[11%]">Packing</th>
-              <th className="text-right w-[11%]">CAPEX</th>
-              <th className="text-right w-[11%]">Outflow</th>
-              <th className="text-right w-[11%]">Net Flow</th>
+              <th className="w-[12%] print:p-1">Month</th>
+              <th className="text-right w-[11%] print:p-1">Revenue</th>
+              <th className="text-right w-[11%] print:p-1">Variable</th>
+              <th className="text-right w-[11%] print:p-1">Fixed</th>
+              <th className="text-right w-[11%] print:p-1">Marketing</th>
+              <th className="text-right w-[11%] print:p-1">Packing</th>
+              <th className="text-right w-[11%] print:p-1">CAPEX</th>
+              <th className="text-right w-[11%] print:p-1">Outflow</th>
+              <th className="text-right w-[11%] print:p-1">Net Flow</th>
             </tr>
           </thead>
           <tbody>
             {cashFlowData.map((month, index) => (
               <tr key={index}>
-                <td>{month.name}</td>
-                <td className="text-right text-green-600">{formatCurrency(month.Revenue)}</td>
-                <td className="text-right text-red-500">{formatCurrency(month.Variable)}</td>
-                <td className="text-right text-red-500">{formatCurrency(month.Fixed)}</td>
-                <td className="text-right text-red-500">{formatCurrency(month.Marketing || 0)}</td>
-                <td className="text-right text-red-500">{formatCurrency(month.Packing || 0)}</td>
-                <td className="text-right text-red-500">{month.CAPEX ? formatCurrency(month.CAPEX) : '$-'}</td>
-                <td className="text-right text-red-500">{formatCurrency(month.Total)}</td>
-                <td className={`text-right ${month.NetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                <td className="print:p-1">{month.name}</td>
+                <td className="text-right text-green-600 print:p-1">{formatCurrency(month.Revenue)}</td>
+                <td className="text-right text-red-500 print:p-1">{formatCurrency(month.Variable)}</td>
+                <td className="text-right text-red-500 print:p-1">{formatCurrency(month.Fixed)}</td>
+                <td className="text-right text-red-500 print:p-1">{formatCurrency(month.Marketing || 0)}</td>
+                <td className="text-right text-red-500 print:p-1">{formatCurrency(month.Packing || 0)}</td>
+                <td className="text-right text-red-500 print:p-1">{month.CAPEX ? formatCurrency(month.CAPEX) : '$-'}</td>
+                <td className="text-right text-red-500 print:p-1">{formatCurrency(month.Total)}</td>
+                <td className={`text-right print:p-1 ${month.NetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                   {formatCurrency(month.NetCashFlow)}
                 </td>
               </tr>
             ))}
             
             <tr className="font-semibold bg-gray-50">
-              <td>Total</td>
-              <td className="text-right text-green-600">{formatCurrency(totalRevenue)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalVariable)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalFixed)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalMarketing)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalPacking)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalCapex)}</td>
-              <td className="text-right text-red-500">{formatCurrency(totalOutflow)}</td>
-              <td className={`text-right ${netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+              <td className="print:p-1">Total</td>
+              <td className="text-right text-green-600 print:p-1">{formatCurrency(totalRevenue)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalVariable)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalFixed)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalMarketing)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalPacking)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalCapex)}</td>
+              <td className="text-right text-red-500 print:p-1">{formatCurrency(totalOutflow)}</td>
+              <td className={`text-right print:p-1 ${netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {formatCurrency(netCashFlow)}
               </td>
             </tr>
@@ -81,10 +81,10 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
         </table>
       </div>
       
-      <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 print:text-xs print:gap-1">
-        <div className="p-2 bg-gray-50 rounded">
-          <p className="text-sm font-semibold">Cash Flow Summary</p>
-          <p className="text-xs mt-1">
+      <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 print:text-[7px] print:gap-1 print:mt-1">
+        <div className="p-2 bg-gray-50 rounded print:p-1">
+          <p className="text-sm font-semibold print:text-[8px]">Cash Flow Summary</p>
+          <p className="text-xs mt-1 print:text-[7px] print:mt-0">
             Total Inflow: <span className="text-green-600">{formatCurrency(totalRevenue)}</span><br />
             Total Outflow: <span className="text-red-500">{formatCurrency(totalOutflow)}</span><br />
             Net Position: <span className={netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}>
@@ -93,9 +93,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           </p>
         </div>
         
-        <div className="p-2 bg-gray-50 rounded">
-          <p className="text-sm font-semibold">Key Insights</p>
-          <ul className="text-xs mt-1 list-disc list-inside">
+        <div className="p-2 bg-gray-50 rounded print:p-1">
+          <p className="text-sm font-semibold print:text-[8px]">Key Insights</p>
+          <ul className="text-xs mt-1 list-disc list-inside print:text-[7px] print:mt-0">
             <li>Negative cash flow in early months (Apr-Oct)</li>
             <li>Peak outflow: CAPEX investments in May</li>
             <li>Revenue starts in June, increases from August</li>
@@ -104,9 +104,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           </ul>
         </div>
         
-        <div className="p-2 bg-gray-50 rounded">
-          <p className="text-sm font-semibold">Financial Health</p>
-          <p className="text-xs mt-1">
+        <div className="p-2 bg-gray-50 rounded print:p-1">
+          <p className="text-sm font-semibold print:text-[8px]">Financial Health</p>
+          <p className="text-xs mt-1 print:text-[7px] print:mt-0">
             Despite initial negative cash flow due to startup investments and seasonal expenses, the farm achieves a strong positive net cash position by fiscal year end, demonstrating financial sustainability.
           </p>
         </div>
