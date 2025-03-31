@@ -1,4 +1,3 @@
-
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -24,7 +23,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
     .slide-container {
       width: 297mm !important;
       height: 210mm !important;
-      padding: 3mm !important;
+      padding: 0 !important;
       margin: 0 !important;
       overflow: hidden !important;
       box-sizing: border-box !important;
@@ -32,20 +31,35 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       page-break-after: always !important;
     }
     .slide-content {
-      padding: 2mm !important;
+      padding: 10mm !important;
       margin: 0 !important;
       overflow: hidden !important;
-      max-height: 200mm !important;
+      max-height: 190mm !important;
+      box-sizing: border-box !important;
     }
-    h1 { font-size: 12pt !important; }
-    h2 { font-size: 10pt !important; }
-    h3 { font-size: 9pt !important; }
-    p, li, td, th { font-size: 7pt !important; }
-    .text-xs, .text-sm { font-size: 6pt !important; }
-    .data-table td, .data-table th { padding: 0.5mm 1mm !important; }
-    #cash-flow-statement .data-table td, #cash-flow-statement .data-table th { 
-      padding: 0.2mm 0.5mm !important;
-      font-size: 5pt !important;
+    h1 { font-size: 14pt !important; }
+    h2 { font-size: 12pt !important; }
+    h3 { font-size: 10pt !important; }
+    p, li { font-size: 9pt !important; }
+    td, th { font-size: 8pt !important; }
+    .text-xs, .text-sm { font-size: 7pt !important; }
+    .data-table td, .data-table th { 
+      padding: 1mm 2mm !important; 
+      word-wrap: break-word !important;
+    }
+    .data-table {
+      table-layout: fixed !important;
+      width: 100% !important;
+    }
+    #cash-flow-statement .data-table td, 
+    #cash-flow-statement .data-table th { 
+      padding: 0.5mm 1mm !important;
+      font-size: 6pt !important;
+    }
+    .grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 5mm !important;
     }
   `;
   document.head.appendChild(tempStyle);
@@ -75,23 +89,11 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '2mm'; // Reduced padding
+      clonedSlide.style.padding = '0'; // No padding on the container
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
       clonedSlide.style.borderRadius = '0';
-      
-      // Special handling for cash flow statement
-      if (clonedSlide.id === 'cash-flow-statement' || clonedSlide.querySelector('#cash-flow-statement')) {
-        const cfTables = clonedSlide.querySelectorAll('.cash-flow-statement table');
-        cfTables.forEach(table => {
-          (table as HTMLElement).style.fontSize = '5pt';
-          const cells = table.querySelectorAll('td, th');
-          cells.forEach(cell => {
-            (cell as HTMLElement).style.padding = '0.2mm 0.5mm';
-          });
-        });
-      }
       
       // Add to temp container and to body
       tempContainer.appendChild(clonedSlide);
@@ -152,7 +154,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
     .slide-container {
       width: 297mm !important;
       height: 210mm !important;
-      padding: 3mm !important;
+      padding: 0 !important;
       margin: 0 !important;
       overflow: hidden !important;
       box-sizing: border-box !important;
@@ -160,21 +162,36 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       page-break-after: always !important;
     }
     .slide-content {
-      padding: 2mm !important;
+      padding: 10mm !important;
       margin: 0 !important;
       overflow: hidden !important;
-      max-height: 200mm !important;
+      max-height: 190mm !important;
+      box-sizing: border-box !important;
     }
-    h1 { font-size: 12pt !important; }
-    h2 { font-size: 10pt !important; }
-    h3 { font-size: 9pt !important; }
-    p, li, td, th { font-size: 7pt !important; }
-    .text-xs, .text-sm { font-size: 6pt !important; }
-    .data-table { font-size: 6pt !important; }
-    .data-table td, .data-table th { padding: 0.5mm 1mm !important; }
-    #cash-flow-statement .data-table { font-size: 5pt !important; }
-    #cash-flow-statement .data-table td, #cash-flow-statement .data-table th { 
-      padding: 0.2mm 0.5mm !important; 
+    h1 { font-size: 14pt !important; }
+    h2 { font-size: 12pt !important; }
+    h3 { font-size: 10pt !important; }
+    p, li { font-size: 9pt !important; }
+    td, th { font-size: 8pt !important; }
+    .text-xs, .text-sm { font-size: 7pt !important; }
+    .data-table { 
+      font-size: 8pt !important; 
+      table-layout: fixed !important;
+      width: 100% !important;
+    }
+    .data-table td, .data-table th { 
+      padding: 1mm 2mm !important; 
+      word-wrap: break-word !important;
+    }
+    #cash-flow-statement .data-table { font-size: 6pt !important; }
+    #cash-flow-statement .data-table td, 
+    #cash-flow-statement .data-table th { 
+      padding: 0.5mm 1mm !important; 
+    }
+    .grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 5mm !important;
     }
   `;
   document.head.appendChild(tempStyle);
@@ -207,23 +224,11 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '2mm'; // Reduced padding
+      clonedSlide.style.padding = '0'; // No padding on container
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
       clonedSlide.style.borderRadius = '0';
-      
-      // Special handling for cash flow statement
-      if (clonedSlide.id === 'cash-flow-statement' || clonedSlide.querySelector('#cash-flow-statement')) {
-        const cfTables = clonedSlide.querySelectorAll('.cash-flow-statement table');
-        cfTables.forEach(table => {
-          (table as HTMLElement).style.fontSize = '5pt';
-          const cells = table.querySelectorAll('td, th');
-          cells.forEach(cell => {
-            (cell as HTMLElement).style.padding = '0.2mm 0.5mm';
-          });
-        });
-      }
       
       // Add to temp container and to body
       tempContainer.appendChild(clonedSlide);

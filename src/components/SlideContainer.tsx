@@ -21,6 +21,8 @@ const SlideContainer: React.FC<SlideContainerProps> = ({ children, id, className
       )}
       style={{
         aspectRatio: '297/210', // A4 landscape aspect ratio
+        pageBreakAfter: 'always',
+        breakAfter: 'page',
       }}
     >
       <div className="slide-content bg-white z-10 relative p-8 rounded-md print:p-2 print:overflow-hidden print:max-h-[200mm]">
