@@ -17,6 +17,38 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
   // Show a loading indicator in the console
   console.log('Starting PDF export process...');
   console.log(`Found ${slides.length} slides to export`);
+  
+  // Create a temporary style element to enforce print styles during export
+  const tempStyle = document.createElement('style');
+  tempStyle.textContent = `
+    .slide-container {
+      width: 297mm !important;
+      height: 210mm !important;
+      padding: 3mm !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      break-after: page !important;
+      page-break-after: always !important;
+    }
+    .slide-content {
+      padding: 2mm !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      max-height: 200mm !important;
+    }
+    h1 { font-size: 12pt !important; }
+    h2 { font-size: 10pt !important; }
+    h3 { font-size: 9pt !important; }
+    p, li, td, th { font-size: 7pt !important; }
+    .text-xs, .text-sm { font-size: 6pt !important; }
+    .data-table td, .data-table th { padding: 0.5mm 1mm !important; }
+    #cash-flow-statement .data-table td, #cash-flow-statement .data-table th { 
+      padding: 0.2mm 0.5mm !important;
+      font-size: 5pt !important;
+    }
+  `;
+  document.head.appendChild(tempStyle);
 
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i] as HTMLElement;
@@ -35,6 +67,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       tempContainer.style.left = '-9999px';
       tempContainer.style.overflow = 'hidden';
       tempContainer.style.backgroundColor = 'white';
+      tempContainer.style.boxSizing = 'border-box';
       
       // Clone the slide content
       const clonedSlide = slide.cloneNode(true) as HTMLElement;
@@ -42,11 +75,23 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '5mm'; // Reduced padding
+      clonedSlide.style.padding = '2mm'; // Reduced padding
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
       clonedSlide.style.borderRadius = '0';
+      
+      // Special handling for cash flow statement
+      if (clonedSlide.id === 'cash-flow-statement' || clonedSlide.querySelector('#cash-flow-statement')) {
+        const cfTables = clonedSlide.querySelectorAll('.cash-flow-statement table');
+        cfTables.forEach(table => {
+          (table as HTMLElement).style.fontSize = '5pt';
+          const cells = table.querySelectorAll('td, th');
+          cells.forEach(cell => {
+            (cell as HTMLElement).style.padding = '0.2mm 0.5mm';
+          });
+        });
+      }
       
       // Add to temp container and to body
       tempContainer.appendChild(clonedSlide);
@@ -65,7 +110,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       // Remove the temp container
       document.body.removeChild(tempContainer);
       
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png', 1.0); // Using maximum quality
       
       // A4 dimensions in mm for landscape
       const pdfWidth = 297;
@@ -86,18 +131,53 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
     }
   }
   
+  // Remove temporary style element
+  document.head.removeChild(tempStyle);
+  
   console.log('PDF export completed, saving file...');
   pdf.save(filename);
   console.log('PDF saved successfully!');
 };
 
-// Export the entire presentation as a single PDF with perfect page fitting
 export const exportEntirePresentation = async (filename: string = 'kuguta-budget-complete.pdf') => {
   // Hide print buttons during export
   const printButtons = document.querySelectorAll('.print-button, .print-menu');
   printButtons.forEach(button => {
     (button as HTMLElement).style.display = 'none';
   });
+
+  // Create a temporary style element to enforce print styles during export
+  const tempStyle = document.createElement('style');
+  tempStyle.textContent = `
+    .slide-container {
+      width: 297mm !important;
+      height: 210mm !important;
+      padding: 3mm !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      break-after: page !important;
+      page-break-after: always !important;
+    }
+    .slide-content {
+      padding: 2mm !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      max-height: 200mm !important;
+    }
+    h1 { font-size: 12pt !important; }
+    h2 { font-size: 10pt !important; }
+    h3 { font-size: 9pt !important; }
+    p, li, td, th { font-size: 7pt !important; }
+    .text-xs, .text-sm { font-size: 6pt !important; }
+    .data-table { font-size: 6pt !important; }
+    .data-table td, .data-table th { padding: 0.5mm 1mm !important; }
+    #cash-flow-statement .data-table { font-size: 5pt !important; }
+    #cash-flow-statement .data-table td, #cash-flow-statement .data-table th { 
+      padding: 0.2mm 0.5mm !important; 
+    }
+  `;
+  document.head.appendChild(tempStyle);
 
   try {
     const slides = document.querySelectorAll('.slide-container');
@@ -119,6 +199,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       tempContainer.style.left = '-9999px';
       tempContainer.style.overflow = 'hidden';
       tempContainer.style.backgroundColor = 'white';
+      tempContainer.style.boxSizing = 'border-box';
       
       // Clone the slide content
       const clonedSlide = slide.cloneNode(true) as HTMLElement;
@@ -126,11 +207,23 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       clonedSlide.style.height = '100%';
       clonedSlide.style.transform = 'scale(1)';
       clonedSlide.style.margin = '0';
-      clonedSlide.style.padding = '5mm'; // Reduced padding
+      clonedSlide.style.padding = '2mm'; // Reduced padding
       clonedSlide.style.boxSizing = 'border-box';
       clonedSlide.style.overflow = 'hidden';
       clonedSlide.style.boxShadow = 'none';
       clonedSlide.style.borderRadius = '0';
+      
+      // Special handling for cash flow statement
+      if (clonedSlide.id === 'cash-flow-statement' || clonedSlide.querySelector('#cash-flow-statement')) {
+        const cfTables = clonedSlide.querySelectorAll('.cash-flow-statement table');
+        cfTables.forEach(table => {
+          (table as HTMLElement).style.fontSize = '5pt';
+          const cells = table.querySelectorAll('td, th');
+          cells.forEach(cell => {
+            (cell as HTMLElement).style.padding = '0.2mm 0.5mm';
+          });
+        });
+      }
       
       // Add to temp container and to body
       tempContainer.appendChild(clonedSlide);
@@ -152,7 +245,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       // Remove the temp container
       document.body.removeChild(tempContainer);
       
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/png', 1.0); // Using maximum quality
       
       // A4 dimensions in mm for landscape
       const pdfWidth = 297;
@@ -174,6 +267,9 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
   } catch (error) {
     console.error('Error exporting entire presentation:', error);
   } finally {
+    // Remove temporary style element
+    document.head.removeChild(tempStyle);
+    
     // Restore print buttons
     printButtons.forEach(button => {
       (button as HTMLElement).style.display = '';
