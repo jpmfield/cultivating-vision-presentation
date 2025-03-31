@@ -27,28 +27,43 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       // Scale factor for better quality
       const scale = 2;
       
-      const canvas = await html2canvas(slide, {
+      // Create a temporary container with exact A4 dimensions for capturing
+      const tempContainer = document.createElement('div');
+      tempContainer.style.width = '210mm';
+      tempContainer.style.height = '297mm';
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.overflow = 'hidden';
+      tempContainer.style.backgroundColor = 'white';
+      
+      // Clone the slide content
+      const clonedSlide = slide.cloneNode(true) as HTMLElement;
+      clonedSlide.style.width = '100%';
+      clonedSlide.style.height = '100%';
+      clonedSlide.style.transform = 'scale(1)';
+      clonedSlide.style.margin = '0';
+      clonedSlide.style.padding = '10mm';
+      clonedSlide.style.boxSizing = 'border-box';
+      clonedSlide.style.overflow = 'hidden';
+      clonedSlide.style.boxShadow = 'none';
+      clonedSlide.style.borderRadius = '0';
+      
+      // Add to temp container and to body
+      tempContainer.appendChild(clonedSlide);
+      document.body.appendChild(tempContainer);
+      
+      const canvas = await html2canvas(tempContainer, {
         scale: scale,
         useCORS: true,
         logging: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        // Set a fixed width to match A4 proportions
-        width: 1240, // Approximately A4 width at 150 DPI
-        height: 1754, // Approximately A4 height at 150 DPI
-        onclone: (document) => {
-          // For the cloned document that will be rendered, we can set explicit dimensions
-          const clonedSlide = document.querySelector(`#${slide.id}`) as HTMLElement;
-          if (clonedSlide) {
-            clonedSlide.style.width = "210mm";
-            clonedSlide.style.minHeight = "297mm";
-            clonedSlide.style.maxHeight = "297mm";
-            clonedSlide.style.margin = "0";
-            clonedSlide.style.padding = "0";
-            clonedSlide.style.overflow = "hidden";
-          }
-        }
+        width: 595, // A4 width in points at 72 DPI
+        height: 842, // A4 height in points at 72 DPI
       });
+      
+      // Remove the temp container
+      document.body.removeChild(tempContainer);
       
       const imgData = canvas.toDataURL('image/png');
       
@@ -96,31 +111,46 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       
       console.log(`Processing slide ${i + 1}/${slides.length} for full presentation`);
       
+      // Create a temporary container with exact A4 dimensions
+      const tempContainer = document.createElement('div');
+      tempContainer.style.width = '210mm';
+      tempContainer.style.height = '297mm';
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.overflow = 'hidden';
+      tempContainer.style.backgroundColor = 'white';
+      
+      // Clone the slide content
+      const clonedSlide = slide.cloneNode(true) as HTMLElement;
+      clonedSlide.style.width = '100%';
+      clonedSlide.style.height = '100%';
+      clonedSlide.style.transform = 'scale(1)';
+      clonedSlide.style.margin = '0';
+      clonedSlide.style.padding = '10mm';
+      clonedSlide.style.boxSizing = 'border-box';
+      clonedSlide.style.overflow = 'hidden';
+      clonedSlide.style.boxShadow = 'none';
+      clonedSlide.style.borderRadius = '0';
+      
+      // Add to temp container and to body
+      tempContainer.appendChild(clonedSlide);
+      document.body.appendChild(tempContainer);
+      
       // Scale factor for better quality
       const scale = 2;
       
-      const canvas = await html2canvas(slide, {
+      const canvas = await html2canvas(tempContainer, {
         scale: scale,
         useCORS: true,
         logging: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        // Set a fixed width to match A4 proportions
-        width: 1240, // Approximately A4 width at 150 DPI
-        height: 1754, // Approximately A4 height at 150 DPI
-        onclone: (document) => {
-          // For the cloned document that will be rendered, we can set explicit dimensions
-          const clonedSlide = document.querySelector(`#${slide.id}`) as HTMLElement;
-          if (clonedSlide) {
-            clonedSlide.style.width = "210mm";
-            clonedSlide.style.minHeight = "297mm";
-            clonedSlide.style.maxHeight = "297mm";
-            clonedSlide.style.margin = "0";
-            clonedSlide.style.padding = "0";
-            clonedSlide.style.overflow = "hidden";
-          }
-        }
+        width: 595, // A4 width in points at 72 DPI
+        height: 842, // A4 height in points at 72 DPI
       });
+      
+      // Remove the temp container
+      document.body.removeChild(tempContainer);
       
       const imgData = canvas.toDataURL('image/png');
       

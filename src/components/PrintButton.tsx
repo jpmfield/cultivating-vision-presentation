@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Printer, Download, Save, FileText, ChevronUp } from 'lucide-react';
+import { Printer, Download, Save, FileText, ChevronUp, CheckCircle } from 'lucide-react';
 import { exportToPdf, exportEntirePresentation } from '@/utils/pdfExport';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { toast } from '@/components/ui/use-toast';
 const PrintButton: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [exportSuccess, setExportSuccess] = useState(false);
   
   const handlePrint = () => {
     window.print();
@@ -18,10 +19,12 @@ const PrintButton: React.FC = () => {
     try {
       setIsExporting(true);
       await exportToPdf('presentation-container', 'kuguta-budget-2025.pdf');
+      setExportSuccess(true);
       toast({
         title: "Export Complete",
         description: "Your presentation has been exported as PDF",
       });
+      setTimeout(() => setExportSuccess(false), 3000);
     } catch (error) {
       console.error('Error exporting to PDF:', error);
       toast({
@@ -39,10 +42,12 @@ const PrintButton: React.FC = () => {
     try {
       setIsExporting(true);
       await exportEntirePresentation('kuguta-complete-budget-2025.pdf');
+      setExportSuccess(true);
       toast({
         title: "Export Complete",
         description: "Your complete presentation has been exported as PDF",
       });
+      setTimeout(() => setExportSuccess(false), 3000);
     } catch (error) {
       console.error('Error exporting entire presentation:', error);
       toast({
@@ -96,7 +101,7 @@ const PrintButton: React.FC = () => {
         className={cn(
           "print-button flex items-center gap-2", 
           isExporting ? "animate-pulse" : "",
-          showOptions ? "bg-primary/90" : "bg-primary"
+          exportSuccess ? "bg-green-600" : showOptions ? "bg-primary/90" : "bg-primary"
         )}
         aria-label="Export options"
         disabled={isExporting}
@@ -105,6 +110,11 @@ const PrintButton: React.FC = () => {
           <>
             <Save size={18} className="animate-pulse" />
             <span>Exporting...</span>
+          </>
+        ) : exportSuccess ? (
+          <>
+            <CheckCircle size={18} />
+            <span className="hidden md:inline">Export Complete</span>
           </>
         ) : (
           <>
