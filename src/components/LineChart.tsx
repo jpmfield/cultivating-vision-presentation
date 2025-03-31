@@ -36,34 +36,14 @@ const LineChart: React.FC<LineChartProps> = ({ data, lines }) => {
           left: 20,
           bottom: 5,
         }}
-        className="print:text-[5pt]"
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
-          dataKey="name" 
-          tick={{ fontSize: 12 }} 
-          tickMargin={5}
-          className="print:text-[5pt]"
-        />
-        <YAxis 
-          tick={{ fontSize: 12 }}
-          tickFormatter={(value) => `$${Math.round(value/1000)}k`}
-          className="print:text-[5pt]"
-        />
+        <XAxis dataKey="name" />
+        <YAxis />
         <Tooltip 
           formatter={(value: number) => `$${value.toLocaleString()}`}
-          contentStyle={{ fontSize: '12px' }}
-          wrapperStyle={{ zIndex: 1000 }}
-          itemStyle={{ padding: '2px 0' }}
         />
-        <Legend 
-          wrapperStyle={{ 
-            fontSize: '12px',
-            paddingTop: '10px',
-            paddingBottom: '5px'
-          }}
-          className="print:text-[5pt]"
-        />
+        <Legend />
         {lines.map((line, index) => (
           <Line
             key={index}
@@ -72,9 +52,6 @@ const LineChart: React.FC<LineChartProps> = ({ data, lines }) => {
             name={line.name || line.dataKey}
             stroke={line.color}
             activeDot={{ r: 8 }}
-            strokeWidth={2}
-            dot={{ strokeWidth: 1 }}
-            className="print:opacity-100" // Ensure lines are visible in print
           />
         ))}
       </RechartsLineChart>

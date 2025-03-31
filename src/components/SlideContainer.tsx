@@ -15,6 +15,7 @@ const SlideContainer: React.FC<SlideContainerProps> = ({ children, id, className
       className={cn(
         "slide-container w-full max-w-5xl mx-auto my-8 p-4 bg-white rounded-lg shadow-md print:shadow-none print:my-0 print:p-0",
         "print:max-w-none print:w-[297mm] print:h-[210mm] print:overflow-hidden", 
+        // Remove the radial gradient background pattern for better rendering in PDF exports
         "border border-gray-100 relative",
         className
       )}

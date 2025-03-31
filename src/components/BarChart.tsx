@@ -36,42 +36,20 @@ const BarChart: React.FC<BarChartProps> = ({ data, bars }) => {
           left: 20,
           bottom: 5,
         }}
-        className="print:text-[5pt]"
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis 
-          dataKey="name" 
-          tick={{ fontSize: 12 }}
-          tickMargin={5}
-          className="print:text-[5pt]"
-        />
-        <YAxis 
-          tick={{ fontSize: 12 }}
-          tickFormatter={(value) => `$${Math.round(value/1000)}k`}
-          className="print:text-[5pt]"
-        />
+        <XAxis dataKey="name" />
+        <YAxis />
         <Tooltip 
           formatter={(value: number) => `$${value.toLocaleString()}`}
-          contentStyle={{ fontSize: '12px' }}
-          wrapperStyle={{ zIndex: 1000 }}
-          itemStyle={{ padding: '2px 0' }}
         />
-        <Legend 
-          wrapperStyle={{ 
-            fontSize: '12px',
-            paddingTop: '10px',
-            paddingBottom: '5px'
-          }}
-          className="print:text-[5pt]"
-        />
+        <Legend />
         {bars.map((bar, index) => (
           <Bar 
             key={index} 
             dataKey={bar.dataKey} 
             name={bar.name || bar.dataKey} 
-            fill={bar.color}
-            maxBarSize={40}
-            className="print:opacity-100" // Ensure bars are visible in print
+            fill={bar.color} 
           />
         ))}
       </RechartsBarChart>

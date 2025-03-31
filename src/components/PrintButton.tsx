@@ -10,7 +10,6 @@ const PrintButton: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
-  const [progressMessage, setProgressMessage] = useState('');
   
   const handlePrint = () => {
     window.print();
@@ -19,26 +18,7 @@ const PrintButton: React.FC = () => {
   const handleExportPdf = async () => {
     try {
       setIsExporting(true);
-      setProgressMessage('Preparing slides...');
-      
-      // Monitor console logs for export progress
-      const originalConsoleLog = console.log;
-      console.log = function(message) {
-        originalConsoleLog.apply(console, arguments);
-        if (typeof message === 'string') {
-          if (message.includes('Processing batch')) {
-            setProgressMessage(message);
-          } else if (message.includes('PDF export completed')) {
-            setProgressMessage('Finalizing PDF...');
-          }
-        }
-      };
-      
       await exportToPdf('presentation-container', 'kuguta-budget-2025.pdf');
-      
-      // Restore original console.log
-      console.log = originalConsoleLog;
-      
       setExportSuccess(true);
       toast({
         title: "Export Complete",
@@ -54,7 +34,6 @@ const PrintButton: React.FC = () => {
       });
     } finally {
       setIsExporting(false);
-      setProgressMessage('');
       setShowOptions(false);
     }
   };
@@ -62,26 +41,7 @@ const PrintButton: React.FC = () => {
   const handleExportEntirePresentation = async () => {
     try {
       setIsExporting(true);
-      setProgressMessage('Preparing complete presentation...');
-      
-      // Monitor console logs for export progress
-      const originalConsoleLog = console.log;
-      console.log = function(message) {
-        originalConsoleLog.apply(console, arguments);
-        if (typeof message === 'string') {
-          if (message.includes('Processing batch')) {
-            setProgressMessage(message);
-          } else if (message.includes('Full presentation PDF export completed')) {
-            setProgressMessage('Finalizing PDF...');
-          }
-        }
-      };
-      
       await exportEntirePresentation('kuguta-complete-budget-2025.pdf');
-      
-      // Restore original console.log
-      console.log = originalConsoleLog;
-      
       setExportSuccess(true);
       toast({
         title: "Export Complete",
@@ -97,7 +57,6 @@ const PrintButton: React.FC = () => {
       });
     } finally {
       setIsExporting(false);
-      setProgressMessage('');
       setShowOptions(false);
     }
   };
@@ -150,7 +109,7 @@ const PrintButton: React.FC = () => {
         {isExporting ? (
           <>
             <Save size={18} className="animate-pulse" />
-            <span>{progressMessage || 'Exporting...'}</span>
+            <span>Exporting...</span>
           </>
         ) : exportSuccess ? (
           <>
