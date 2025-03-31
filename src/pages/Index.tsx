@@ -7,6 +7,8 @@ import BarChart from '@/components/BarChart';
 import PieChart from '@/components/PieChart';
 import LineChart from '@/components/LineChart';
 import PrintButton from '@/components/PrintButton';
+import IncomeStatement from '@/components/IncomeStatement';
+import CashFlowStatement from '@/components/CashFlowStatement';
 
 const Index = () => {
   // Data for the Revenue Breakdown Pie Chart
@@ -159,7 +161,7 @@ const Index = () => {
   });
 
   return (
-    <div className="pb-20">
+    <div id="presentation-container" className="pb-20">
       <PrintButton />
       
       {/* Cover Slide */}
@@ -178,6 +180,63 @@ const Index = () => {
           </div>
           <p className="text-gray-500 mt-4">April 2025 – March 2026</p>
         </div>
+      </SlideContainer>
+
+      {/* Executive Summary */}
+      <SlideContainer id="executive-summary">
+        <div className="slide-header">
+          <h2 className="slide-title">Executive Summary</h2>
+          <p className="text-gray-600">Key Financial Metrics</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <DataTable 
+              headers={['Metric', 'Value']}
+              data={[
+                ['Total Land', '8.96 hectares'],
+                ['Total Revenue', '$428,443'],
+                ['Net Profit', '$46,594'],
+                ['CAPEX Investment', '$199,607'],
+                ['Annual Cash Outflow', '$381,849'],
+                ['Net Cash Position', '$46,594'],
+              ]}
+            />
+            
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <h3 className="font-semibold mb-2">Key Focus Areas:</h3>
+              <ul className="list-disc pl-5 text-gray-700">
+                <li>Crop diversification (12+ crops/livestock)</li>
+                <li>Infrastructure upgrades (greenhouses, irrigation)</li>
+                <li>Maximizing margins (92% for greenhouse tomatoes)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <ChartContainer title="Revenue Distribution">
+              <PieChart 
+                data={revenueData}
+                colors={revenueColors}
+              />
+            </ChartContainer>
+          </div>
+        </div>
+      </SlideContainer>
+
+      {/* Income Statement */}
+      <SlideContainer id="income-statement">
+        <div className="slide-header">
+          <h2 className="slide-title">Income Statement</h2>
+          <p className="text-gray-600">Fiscal Year 2025-2026</p>
+        </div>
+        
+        <IncomeStatement 
+          year="2025-2026"
+          revenueData={revenueData}
+          variableCostsData={variableCostsData}
+          fixedCostsTotal={53971}
+        />
       </SlideContainer>
 
       {/* Annual Cash Outflow Summary */}
@@ -210,6 +269,16 @@ const Index = () => {
             />
           </ChartContainer>
         </div>
+      </SlideContainer>
+
+      {/* Cash Flow Statement */}
+      <SlideContainer id="cash-flow-statement">
+        <div className="slide-header">
+          <h2 className="slide-title">Cash Flow Statement</h2>
+          <p className="text-gray-600">Monthly Cash Flow Analysis</p>
+        </div>
+        
+        <CashFlowStatement cashFlowData={cashFlowForecastData} />
       </SlideContainer>
 
       {/* Monthly Cash Outflow Breakdown */}
