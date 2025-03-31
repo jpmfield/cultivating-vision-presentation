@@ -32,8 +32,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
     <div className="cash-flow-statement">
       <h3 className="text-lg font-semibold mb-1 print:text-xs print:mb-0">Cash Flow Statement (April 2025 - March 2026)</h3>
       
-      <div className="table-container overflow-x-auto print:text-[5.5pt]">
-        <table className="data-table w-full text-xs">
+      <div className="table-container overflow-x-auto print:overflow-visible print:text-[5.5pt]">
+        {/* Use a table with fixed layout to ensure consistent column widths */}
+        <table className="data-table w-full text-xs table-fixed">
           <thead>
             <tr>
               <th className="w-[12%] print:p-0.5 print:text-[5pt]">Month</th>
@@ -49,7 +50,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           </thead>
           <tbody>
             {cashFlowData.map((month, index) => (
-              <tr key={index}>
+              <tr key={index} className="print:h-[2mm]">
                 <td className="print:p-0.5 print:text-[5pt]">{month.name}</td>
                 <td className="text-right text-green-600 print:p-0.5 print:text-[5pt]">{formatCurrency(month.Revenue)}</td>
                 <td className="text-right text-red-500 print:p-0.5 print:text-[5pt]">{formatCurrency(month.Variable)}</td>
@@ -64,7 +65,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               </tr>
             ))}
             
-            <tr className="font-semibold bg-gray-50">
+            <tr className="font-semibold bg-gray-50 print:h-[2.5mm]">
               <td className="print:p-0.5 print:text-[5pt]">Total</td>
               <td className="text-right text-green-600 print:p-0.5 print:text-[5pt]">{formatCurrency(totalRevenue)}</td>
               <td className="text-right text-red-500 print:p-0.5 print:text-[5pt]">{formatCurrency(totalVariable)}</td>
