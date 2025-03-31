@@ -55,7 +55,7 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
             ))}
             
             <tr className="font-semibold bg-gray-50">
-              <td>Less: Variable Costs</td>
+              <td>Less: Variable Costs (COGS)</td>
               <td className="text-right text-variable">{formatCurrency(totalVariableCosts)}</td>
             </tr>
             
@@ -77,12 +77,12 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
             </tr>
             
             <tr className="font-semibold bg-gray-50">
-              <td>Less: Fixed Costs</td>
+              <td>Less: Operating Expenses</td>
               <td className="text-right text-variable">{formatCurrency(fixedCostsTotal)}</td>
             </tr>
             
             <tr className="font-semibold bg-gray-50">
-              <td>Operating Profit (EBITDA)</td>
+              <td>Earnings Before Interest & Taxes</td>
               <td className="text-right text-green-600">{formatCurrency(operatingProfit)}</td>
             </tr>
             

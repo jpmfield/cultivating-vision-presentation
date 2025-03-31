@@ -11,7 +11,7 @@ import IncomeStatement from '@/components/IncomeStatement';
 import CashFlowStatement from '@/components/CashFlowStatement';
 
 const Index = () => {
-  // Data for the Revenue Breakdown Pie Chart
+  // Updated Data for the Revenue Breakdown Pie Chart
   const revenueData = [
     { name: 'GreenHouse Tomatoes', value: 130500 },
     { name: 'Chickens', value: 58900 },
@@ -22,72 +22,93 @@ const Index = () => {
 
   const revenueColors = ['#FF6B6B', '#FFD166', '#06D6A0', '#118AB2', '#073B4C'];
 
-  // Data for the Expense Breakdown Bar Chart
+  // Updated Variable Costs Breakdown
+  const variableCostsData = [
+    { name: 'Cabbage', value: 43200 },
+    { name: 'Chickens', value: 42000 },
+    { name: 'GreenHouse Tomatoes', value: 32400 },
+    { name: 'Potatoes', value: 29440 },
+    { name: 'Other Crops', value: 7179 },
+  ];
+
+  // Updated data for the Expense Breakdown
   const expenseData = [
-    { name: 'Variable Costs', value: 128271 },
-    { name: 'Fixed Costs', value: 53971 },
+    { name: 'Variable Costs', value: 154219 },
+    { name: 'Fixed Costs', value: 72151 },
     { name: 'CAPEX', value: 199607 },
   ];
 
   const expenseColors = ['#ea384c', '#FEC6A1', '#1EAEDB'];
 
-  // Monthly Cash Outflow Data
+  // CAPEX Breakdown (updated)
+  const capexData = [
+    { name: 'Greenhouses', value: 80400 },
+    { name: 'Packhouse', value: 50000 },
+    { name: 'Chicken Run', value: 30000 },
+    { name: 'High-tech Nursery', value: 12000 },
+    { name: 'Irrigation Systems', value: 12400 },
+    { name: 'Area Fencing', value: 10112 },
+    { name: 'Field Lights', value: 3245 },
+    { name: 'Other', value: 1450 },
+  ];
+
+  // Monthly Cash Outflow Data (updated)
   const monthlyOutflowData = [
     { 
       name: 'Apr-25', 
-      Variable: 13270, 
+      Variable: 15570, 
       Fixed: 9229, 
       CAPEX: 26607, 
-      Total: 49106 
+      Total: 51406 
     },
     { 
       name: 'May-25', 
-      Variable: 13270, 
+      Variable: 15570, 
       Fixed: 5629, 
       CAPEX: 80400, 
-      Total: 99299 
+      Total: 101599 
     },
     { 
       name: 'Jun-25', 
-      Variable: 9230, 
+      Variable: 11090, 
       Fixed: 5629, 
       CAPEX: 50000, 
-      Total: 64859 
+      Total: 66719 
     },
     { 
       name: 'Jul-25', 
-      Variable: 10581, 
+      Variable: 12960, 
       Fixed: 5629, 
       CAPEX: 30000, 
-      Total: 46210 
+      Total: 48589 
     },
     { 
       name: 'Aug-25', 
-      Variable: 25240, 
+      Variable: 30390, 
       Fixed: 5629, 
       CAPEX: 12600, 
-      Total: 43469 
+      Total: 48619 
     },
     { 
       name: 'Sep-25', 
-      Variable: 37640, 
+      Variable: 45490, 
       Fixed: 6129, 
       CAPEX: 0, 
-      Total: 43769 
+      Total: 51619 
     },
     { 
       name: 'Oct-25', 
-      Variable: 10690, 
+      Variable: 13100, 
       Fixed: 5629, 
       CAPEX: 0, 
-      Total: 16319 
+      Total: 18729 
     },
     { 
       name: 'Nov-25', 
-      Variable: 8350, 
+      Variable: 10050, 
       Fixed: 5629, 
       CAPEX: 0, 
-      Total: 13979 
+      Total: 15679 
     },
     { 
       name: 'Dec-25', 
@@ -106,59 +127,34 @@ const Index = () => {
     { 
       name: 'Feb-26', 
       Variable: 0, 
-      Fixed: 5977, 
+      Fixed: 5978, 
       CAPEX: 0, 
-      Total: 5977 
+      Total: 5978 
     },
     { 
       name: 'Mar-26', 
       Variable: 0, 
-      Fixed: 5780, 
+      Fixed: 5781, 
       CAPEX: 0, 
-      Total: 5780 
+      Total: 5781 
     },
   ];
 
-  // Variable Costs Breakdown
-  const variableCostsData = [
-    { name: 'Chickens', value: 38000 },
-    { name: 'GreenHouse Tomatoes', value: 32400 },
-    { name: 'Cabbage', value: 32400 },
-    { name: 'Potatoes', value: 23940 },
-    { name: 'Fish', value: 1311 },
+  // Monthly Cash Flow Forecast (updated with actual figures from spreadsheet)
+  const cashFlowForecastData = [
+    { name: 'Apr-25', Revenue: 0, Variable: 15570, Fixed: 9229, CAPEX: 26607, Total: 51406, NetCashFlow: -51406 },
+    { name: 'May-25', Revenue: 0, Variable: 15570, Fixed: 5629, CAPEX: 80400, Total: 101599, NetCashFlow: -101599 },
+    { name: 'Jun-25', Revenue: 7363, Variable: 11090, Fixed: 5629, CAPEX: 50000, Total: 66719, NetCashFlow: -59356 },
+    { name: 'Jul-25', Revenue: 7363, Variable: 12960, Fixed: 5629, CAPEX: 30000, Total: 48589, NetCashFlow: -41226 },
+    { name: 'Aug-25', Revenue: 33863, Variable: 30390, Fixed: 5629, CAPEX: 12600, Total: 48619, NetCashFlow: -14756 },
+    { name: 'Sep-25', Revenue: 33983, Variable: 45490, Fixed: 6129, CAPEX: 0, Total: 51619, NetCashFlow: -17636 },
+    { name: 'Oct-25', Revenue: 21003, Variable: 13100, Fixed: 5629, CAPEX: 0, Total: 18729, NetCashFlow: 2274 },
+    { name: 'Nov-25', Revenue: 27753, Variable: 10050, Fixed: 5629, CAPEX: 0, Total: 15679, NetCashFlow: 12074 },
+    { name: 'Dec-25', Revenue: 78485, Variable: 0, Fixed: 5629, CAPEX: 0, Total: 5629, NetCashFlow: 72856 },
+    { name: 'Jan-26', Revenue: 90453, Variable: 0, Fixed: 5629, CAPEX: 0, Total: 5629, NetCashFlow: 84824 },
+    { name: 'Feb-26', Revenue: 53015, Variable: 0, Fixed: 5978, CAPEX: 0, Total: 5978, NetCashFlow: 47037 },
+    { name: 'Mar-26', Revenue: 74165, Variable: 0, Fixed: 5781, CAPEX: 0, Total: 5781, NetCashFlow: 68384 },
   ];
-
-  // CAPEX Breakdown
-  const capexData = [
-    { name: 'Greenhouses', value: 80400 },
-    { name: 'Packhouse', value: 50000 },
-    { name: 'Chicken Run', value: 30000 },
-    { name: 'Irrigation Systems', value: 12400 },
-    { name: 'Area Fencing', value: 10112 },
-    { name: 'Field Lights', value: 3245 },
-  ];
-
-  // Monthly Cash Flow Forecast
-  const cashFlowForecastData = monthlyOutflowData.map(month => {
-    // This is simplified; in a real scenario, you'd have actual revenue data
-    // Using a simple model to estimate revenue based on the given information
-    let revenue = 0;
-    
-    // Simplified model: More revenue in later months after harvest
-    if (month.name === 'Apr-25' || month.name === 'May-25' || month.name === 'Jun-25' || month.name === 'Jul-25') {
-      revenue = month.Total * 0.2; // Early months have low revenue
-    } else if (month.name === 'Aug-25' || month.name === 'Sep-25') {
-      revenue = month.Total * 2; // Harvest months have high revenue
-    } else {
-      revenue = month.Total * 3; // Later months have continued sales
-    }
-    
-    return {
-      ...month,
-      Revenue: Math.round(revenue),
-      NetCashFlow: Math.round(revenue - month.Total)
-    };
-  });
 
   return (
     <div id="presentation-container" className="pb-20">
@@ -195,11 +191,11 @@ const Index = () => {
               headers={['Metric', 'Value']}
               data={[
                 ['Total Land', '8.96 hectares'],
-                ['Total Revenue', '$428,443'],
-                ['Net Profit', '$46,594'],
+                ['Total Revenue', '$390,225'],
+                ['Net Profit', '$164,035'],
                 ['CAPEX Investment', '$199,607'],
-                ['Annual Cash Outflow', '$381,849'],
-                ['Net Cash Position', '$46,594'],
+                ['Annual Cash Outflow', '$426,326'],
+                ['Net Cash Position', '$164,035'],
               ]}
             />
             
@@ -235,7 +231,7 @@ const Index = () => {
           year="2025-2026"
           revenueData={revenueData}
           variableCostsData={variableCostsData}
-          fixedCostsTotal={53971}
+          fixedCostsTotal={72151}
         />
       </SlideContainer>
 
@@ -243,7 +239,7 @@ const Index = () => {
       <SlideContainer id="annual-outflow">
         <div className="slide-header">
           <h2 className="slide-title">Annual Cash Outflow Summary</h2>
-          <p className="text-gray-600">Total Cash Outflow (2025): $381,849</p>
+          <p className="text-gray-600">Total Cash Outflow (2025): $425,977</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -251,8 +247,8 @@ const Index = () => {
             <DataTable 
               headers={['Category', 'Amount (USD)', 'Details']}
               data={[
-                ['1. Variable Costs', '$128,271', 'Crop/livestock-specific expenses (seeds, feed, labor).'],
-                ['2. Fixed Costs', '$53,971', 'Wages, utilities, fuel, maintenance.'],
+                ['1. Variable Costs', '$154,219', 'Crop/livestock-specific expenses (seeds, feed, labor).'],
+                ['2. Fixed Costs', '$72,151', 'Wages, utilities, insurance, maintenance.'],
                 ['3. CAPEX', '$199,607', 'Infrastructure projects (greenhouses, irrigation, etc.).'],
               ]}
             />
@@ -261,8 +257,8 @@ const Index = () => {
           <ChartContainer title="Expense Distribution">
             <PieChart 
               data={[
-                { name: 'Variable Costs', value: 128271 },
-                { name: 'Fixed Costs', value: 53971 },
+                { name: 'Variable Costs', value: 154219 },
+                { name: 'Fixed Costs', value: 72151 },
                 { name: 'CAPEX', value: 199607 },
               ]}
               colors={['#ea384c', '#FEC6A1', '#1EAEDB']}
@@ -292,15 +288,15 @@ const Index = () => {
           <DataTable 
             headers={['Month', 'Variable Costs', 'Fixed Costs', 'CAPEX', 'Total Monthly Outflow']}
             data={[
-              ['Apr-25', '$13,270', '$9,229', '$26,607', '$49,106'],
-              ['May-25', '$13,270', '$5,629', '$80,400', '$99,299'],
-              ['Jun-25', '$9,230', '$5,629', '$50,000', '$64,859'],
-              ['Jul-25', '$10,581', '$5,629', '$30,000', '$46,210'],
-              ['Aug-25', '$25,240', '$5,629', '$12,600', '$43,469'],
-              ['Sep-25', '$37,640', '$6,129', '-', '$43,769'],
+              ['Apr-25', '$15,570', '$9,229', '$26,607', '$51,406'],
+              ['May-25', '$15,570', '$5,629', '$80,400', '$101,599'],
+              ['Jun-25', '$11,090', '$5,629', '$50,000', '$66,719'],
+              ['Jul-25', '$12,960', '$5,629', '$30,000', '$48,589'],
+              ['Aug-25', '$30,390', '$5,629', '$12,600', '$48,619'],
+              ['Sep-25', '$45,490', '$6,129', '-', '$51,619'],
             ]}
           />
-          <p className="text-sm text-gray-500 mt-2">Total Annual Outflow: $381,849</p>
+          <p className="text-sm text-gray-500 mt-2">Total Annual Outflow: $425,977</p>
         </div>
         
         <ChartContainer title="Monthly Outflow Distribution" height={400}>
@@ -327,12 +323,12 @@ const Index = () => {
             <DataTable 
               headers={['Item', 'Cost (USD)', 'Key Drivers']}
               data={[
-                ['Chickens', '$38,000', 'Feed, labor, housing.'],
+                ['Cabbage', '$43,200', 'Fertilizers, pest control.'],
+                ['Chickens', '$42,000', 'Feed, labor, housing.'],
                 ['GreenHouse Tomatoes', '$32,400', 'Seedlings, climate control.'],
-                ['Cabbage', '$32,400', 'Fertilizers, pest control.'],
-                ['Potatoes', '$23,940', 'Seed tubers, irrigation.'],
-                ['Fish', '$1,311', 'Feed, pond maintenance.'],
-                ['Total Variable Costs', '$128,271', ''],
+                ['Potatoes', '$29,440', 'Seed tubers, irrigation.'],
+                ['Other Crops', '$7,179', 'Various inputs.'],
+                ['Total Variable Costs', '$154,219', ''],
               ]}
             />
           </div>
@@ -340,7 +336,7 @@ const Index = () => {
           <ChartContainer title="Variable Costs by Crop/Livestock">
             <PieChart 
               data={variableCostsData}
-              colors={['#FFD166', '#FF6B6B', '#06D6A0', '#118AB2', '#073B4C']}
+              colors={['#06D6A0', '#FFD166', '#FF6B6B', '#118AB2', '#073B4C']}
             />
           </ChartContainer>
         </div>
@@ -356,14 +352,17 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <DataTable 
-              headers={['Category', 'Monthly Cost (USD)', 'Annual Total']}
+              headers={['Category', 'Annual Cost (USD)']}
               data={[
-                ['Wages & Salaries', '$1,450', '$17,250'],
-                ['Fuel & Lubricants', '$795', '$9,540'],
-                ['Electricity & Water', '$5.50', '$66'],
-                ['Protective Gear', '$268', '$3,220'],
-                ['Insurance & Bank Fees', '$170', '$2,040'],
-                ['Total Fixed Costs', '$4,497/month', '$53,971'],
+                ['Land Levy', '$18,000'],
+                ['Wages & Salaries', '$29,250'],
+                ['Protective Clothing', '$3,220'],
+                ['Fuel & Lubricants', '$6,435'],
+                ['Consultancy', '$7,200'],
+                ['Travel & Subsistence', '$1,800'],
+                ['Insurance', '$1,800'],
+                ['Other Expenses', '$5,446'],
+                ['Total Fixed Costs', '$72,151'],
               ]}
             />
           </div>
@@ -371,13 +370,16 @@ const Index = () => {
           <ChartContainer title="Annual Fixed Costs Distribution">
             <PieChart 
               data={[
-                { name: 'Wages & Salaries', value: 17250 },
-                { name: 'Fuel & Lubricants', value: 9540 },
-                { name: 'Protective Gear', value: 3220 },
-                { name: 'Insurance & Bank Fees', value: 2040 },
-                { name: 'Other', value: 21921 },
+                { name: 'Land Levy', value: 18000 },
+                { name: 'Wages & Salaries', value: 29250 },
+                { name: 'Protective Clothing', value: 3220 },
+                { name: 'Fuel & Lubricants', value: 6435 },
+                { name: 'Consultancy', value: 7200 },
+                { name: 'Travel & Subsistence', value: 1800 },
+                { name: 'Insurance', value: 1800 },
+                { name: 'Other Expenses', value: 5446 },
               ]}
-              colors={['#118AB2', '#073B4C', '#06D6A0', '#FFD166', '#FF6B6B']}
+              colors={['#118AB2', '#073B4C', '#06D6A0', '#FFD166', '#FF6B6B', '#FEC6A1', '#ea384c', '#1EAEDB']}
             />
           </ChartContainer>
         </div>
@@ -398,9 +400,11 @@ const Index = () => {
                 ['Greenhouses (6 structures)', '$80,400'],
                 ['Packhouse (Medium-Tech)', '$50,000'],
                 ['Chicken Run (Semi-automated)', '$30,000'],
+                ['High-tech Nursery', '$12,000'],
                 ['Irrigation Systems (Boreholes x2)', '$12,400'],
                 ['Area Fencing (Electric + Barbed Wire)', '$10,112'],
                 ['Field Lights (LED Poles)', '$3,245'],
+                ['Other (Layers, Goats, etc.)', '$1,450'],
                 ['Total CAPEX', '$199,607'],
               ]}
             />
@@ -409,7 +413,7 @@ const Index = () => {
           <ChartContainer title="CAPEX Distribution">
             <PieChart 
               data={capexData}
-              colors={['#1EAEDB', '#118AB2', '#FFD166', '#06D6A0', '#073B4C', '#FF6B6B']}
+              colors={['#1EAEDB', '#118AB2', '#FFD166', '#06D6A0', '#073B4C', '#FF6B6B', '#FEC6A1', '#ea384c']}
             />
           </ChartContainer>
         </div>
@@ -426,19 +430,19 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="text-center p-4 bg-white rounded-lg shadow">
               <p className="text-gray-600 mb-2">Total Revenue</p>
-              <p className="text-3xl font-bold text-primary">$428,443</p>
+              <p className="text-3xl font-bold text-primary">$390,225</p>
             </div>
             <div className="text-center p-4 bg-white rounded-lg shadow">
               <p className="text-gray-600 mb-2">Total Outflow</p>
-              <p className="text-3xl font-bold text-variable">$381,849</p>
+              <p className="text-3xl font-bold text-variable">$226,190</p>
             </div>
             <div className="text-center p-4 bg-white rounded-lg shadow">
               <p className="text-gray-600 mb-2">Net Profit</p>
-              <p className="text-3xl font-bold text-green-600">$46,594</p>
+              <p className="text-3xl font-bold text-green-600">$164,035</p>
             </div>
           </div>
           <p className="text-center text-gray-600 italic">
-            Key Insight: Positive cash flow starts in August 2025 post-harvest.
+            Key Insight: Positive cash flow starts in October 2025 post-harvest.
           </p>
         </div>
         
@@ -464,28 +468,29 @@ const Index = () => {
         <DataTable 
           headers={['Month', 'Variable', 'Fixed', 'CAPEX', 'Total']}
           data={[
-            ['Apr-25', '$13,270', '$9,229', '$26,607', '$49,106'],
-            ['May-25', '$13,270', '$5,629', '$80,400', '$99,299'],
-            ['Jun-25', '$9,230', '$5,629', '$50,000', '$64,859'],
-            ['Jul-25', '$10,581', '$5,629', '$30,000', '$46,210'],
-            ['Aug-25', '$25,240', '$5,629', '$12,600', '$43,469'],
-            ['Sep-25', '$37,640', '$6,129', '-', '$43,769'],
-            ['Oct-25', '$10,690', '$5,629', '-', '$16,319'],
-            ['Nov-25', '$8,350', '$5,629', '-', '$13,979'],
+            ['Apr-25', '$15,570', '$9,229', '$26,607', '$51,406'],
+            ['May-25', '$15,570', '$5,629', '$80,400', '$101,599'],
+            ['Jun-25', '$11,090', '$5,629', '$50,000', '$66,719'],
+            ['Jul-25', '$12,960', '$5,629', '$30,000', '$48,589'],
+            ['Aug-25', '$30,390', '$5,629', '$12,600', '$48,619'],
+            ['Sep-25', '$45,490', '$6,129', '-', '$51,619'],
+            ['Oct-25', '$13,100', '$5,629', '-', '$18,729'],
+            ['Nov-25', '$10,050', '$5,629', '-', '$15,679'],
             ['Dec-25', '-', '$5,629', '-', '$5,629'],
             ['Jan-26', '-', '$5,629', '-', '$5,629'],
-            ['Feb-26', '-', '$5,977', '-', '$5,977'],
-            ['Mar-26', '-', '$5,780', '-', '$5,780'],
-            ['Total', '$128,271', '$53,971', '$199,607', '$381,849'],
+            ['Feb-26', '-', '$5,978', '-', '$5,978'],
+            ['Mar-26', '-', '$5,781', '-', '$5,781'],
+            ['Total', '$154,219', '$72,151', '$199,607', '$425,977'],
           ]}
         />
         
         <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-semibold mb-2">Design Notes:</h3>
+          <h3 className="font-semibold mb-2">Financial Notes:</h3>
           <ul className="list-disc pl-5 text-gray-700">
-            <li>Color coding used: Variable (red), Fixed (orange), CAPEX (blue)</li>
-            <li>Peak spending months highlighted (May: $99K CAPEX for greenhouses)</li>
-            <li>Monthly data can be exported to Excel/PDF for further analysis</li>
+            <li>Revenue projections based on actual market prices and expected yields</li>
+            <li>CAPEX investments front-loaded in early months to prepare for growing season</li>
+            <li>Positive net cashflow occurs from October 2025 onwards</li>
+            <li>Total project delivers a net profit of $164,035 (42% profit margin)</li>
           </ul>
         </div>
       </SlideContainer>

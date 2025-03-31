@@ -33,7 +33,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
     <div className="cash-flow-statement">
       <h3 className="text-xl font-semibold mb-4">Cash Flow Statement (April 2025 - March 2026)</h3>
       
-      <div className="table-container">
+      <div className="table-container overflow-x-auto">
         <table className="data-table">
           <thead>
             <tr>
@@ -88,16 +88,16 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
         <div className="p-3 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Key Insights</p>
           <ul className="text-sm mt-1 list-disc list-inside">
-            <li>Negative cash flow in early months (Apr-Jul)</li>
+            <li>Negative cash flow in early months (Apr-Sep)</li>
             <li>Peak outflow in May: CAPEX investments</li>
-            <li>Positive cash flow begins August 2025</li>
+            <li>Positive cash flow begins October 2025</li>
           </ul>
         </div>
         
         <div className="p-3 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Financial Health</p>
           <p className="text-sm mt-1">
-            By fiscal year end, the farm achieves a positive net cash position, demonstrating financial sustainability despite heavy upfront investments.
+            By fiscal year end, the farm achieves a strong positive net cash position of $164,035, demonstrating financial sustainability despite heavy upfront investments.
           </p>
         </div>
       </div>
