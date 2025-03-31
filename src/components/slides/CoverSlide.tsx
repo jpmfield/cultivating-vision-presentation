@@ -7,7 +7,7 @@ const CoverSlide: React.FC = () => {
     <SlideContainer id="cover">
       <div className="flex flex-col items-center justify-center py-10">
         <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-center">
-          Kuguta Community Gardens 2025 Budget
+          Kuguta Mission Gardens 2025 Budget
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 mb-8 text-center">
           Cultivating Growth, Sustainability, and Profitability

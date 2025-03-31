@@ -10,7 +10,9 @@ export const variableCostsData = [
 export const expenseData = [
   { name: 'Variable Costs', value: 154219 },
   { name: 'Fixed Costs', value: 72151 },
+  { name: 'Marketing Costs', value: 34275.4 },
+  { name: 'Packing Costs', value: 3941.671 },
   { name: 'CAPEX', value: 199607 },
 ];
 
-export const expenseColors = ['#ea384c', '#FEC6A1', '#1EAEDB'];
+export const expenseColors = ['#ea384c', '#FEC6A1', '#06D6A0', '#118AB2', '#1EAEDB'];

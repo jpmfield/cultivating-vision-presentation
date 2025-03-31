@@ -30,8 +30,15 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
   const totalRevenue = 390225; // Exact value from screenshot
   const totalVariableCosts = 154219; // COGS value from screenshot
   const grossProfit = 236006; // Exact value from screenshot
-  const totalExpenses = 71971; // Total expenses from screenshot
-  const operatingProfit = 164035; // EBIT from screenshot
+  
+  // Add the new marketing and packing costs to the total expenses
+  const marketingCosts = 34275.4;
+  const packingCosts = 3941.671;
+  const baseOperatingExpenses = 71971; // Original operating expenses
+  const totalExpenses = baseOperatingExpenses + marketingCosts + packingCosts; // Updated total
+  
+  // Recalculate operating profit with the new expenses
+  const operatingProfit = grossProfit - totalExpenses;
   
   // Define operating expenses
   const operatingExpenses = [
@@ -57,7 +64,7 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
   return (
     <div className="income-statement w-full">
       <div className="flex justify-between items-center bg-[#1c3664] text-white p-3">
-        <p className="text-sm">© KUGUTA COMUNTY GARDENS®. All rights reserved.</p>
+        <p className="text-sm">© KUGUTA MISSION GARDENS®. All rights reserved.</p>
       </div>
       
       <Table className="w-full border-collapse">

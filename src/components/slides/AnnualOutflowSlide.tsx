@@ -7,11 +7,14 @@ import PieChart from '@/components/PieChart';
 import { expenseData, expenseColors } from '@/data/expenseData';
 
 const AnnualOutflowSlide: React.FC = () => {
+  // Calculate the total outflow including the new costs
+  const totalOutflow = expenseData.reduce((sum, item) => sum + item.value, 0);
+  
   return (
     <SlideContainer id="annual-outflow">
       <div className="slide-header">
         <h2 className="slide-title">Annual Cash Outflow Summary</h2>
-        <p className="text-gray-600">Total Cash Outflow (2025): $425,977</p>
+        <p className="text-gray-600">Total Cash Outflow (2025): ${totalOutflow.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -21,7 +24,9 @@ const AnnualOutflowSlide: React.FC = () => {
             data={[
               ['1. Variable Costs', '$154,219', 'Crop/livestock-specific expenses (seeds, feed, labor).'],
               ['2. Fixed Costs', '$72,151', 'Wages, utilities, insurance, maintenance.'],
-              ['3. CAPEX', '$199,607', 'Infrastructure projects (greenhouses, irrigation, etc.).'],
+              ['3. Marketing Costs', '$34,275', 'Advertising, promotions, market access.'],
+              ['4. Packing Costs', '$3,942', 'Packaging materials and labor.'],
+              ['5. CAPEX', '$199,607', 'Infrastructure projects (greenhouses, irrigation, etc.).'],
             ]}
           />
         </div>
