@@ -1,6 +1,17 @@
 
 import React from 'react';
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
+import { Table, TableBody } from "@/components/ui/table";
+import StatementHeader from './income-statement/StatementHeader';
+import RevenueSection from './income-statement/RevenueSection';
+import CogsSection from './income-statement/CogsSection';
+import GrossMarginSection from './income-statement/GrossMarginSection';
+import OperatingExpensesSection from './income-statement/OperatingExpensesSection';
+import TotalExpensesSection from './income-statement/TotalExpensesSection';
+import EbitSection from './income-statement/EbitSection';
+import InterestExpenseSection from './income-statement/InterestExpenseSection';
+import EbtSection from './income-statement/EbtSection';
+import IncomeTaxesSection from './income-statement/IncomeTaxesSection';
+import NetEarningsSection from './income-statement/NetEarningsSection';
 
 interface IncomeStatementProps {
   year: string;
@@ -22,13 +33,26 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
   const totalExpenses = 71971; // Total expenses from screenshot
   const operatingProfit = 164035; // EBIT from screenshot
   
-  // Format currency
-  const formatCurrency = (value: number | string) => {
-    if (value === 0 || value === '-') {
-      return '$-';
-    }
-    return `$${Number(value).toLocaleString()}`;
-  };
+  // Define operating expenses
+  const operatingExpenses = [
+    { name: 'Land Levy', value: 18000 },
+    { name: 'Wages and salaries', value: 29250 },
+    { name: 'Protective Clothing', value: 3220 },
+    { name: 'Fuel and lubricants', value: 6435 },
+    { name: 'Electricity and water', value: 66 },
+    { name: 'Stationery', value: 240 },
+    { name: 'Cellphone charges', value: 480 },
+    { name: 'Bank Charges', value: 240 },
+    { name: 'Insurance', value: 1800 },
+    { name: 'Wifi', value: 1200 },
+    { name: 'Travel & Subsistence Allowance', value: 1800 },
+    { name: 'Repairs & Maintanance', value: 600 },
+    { name: 'First aid kit', value: 240 },
+    { name: 'Service kit', value: 450 },
+    { name: 'Legal fees', value: 216 },
+    { name: 'Consultancy', value: 7200 },
+    { name: 'Add Sundries', value: 534 },
+  ];
 
   return (
     <div className="income-statement w-full">
@@ -37,157 +61,18 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
       </div>
       
       <Table className="w-full border-collapse">
-        <TableHeader>
-          <TableRow className="border-b border-gray-300">
-            <TableHead className="text-left font-bold border border-gray-300 p-2">USD$000</TableHead>
-            <TableHead className="text-right font-bold border border-gray-300 p-2">FY</TableHead>
-          </TableRow>
-        </TableHeader>
+        <StatementHeader />
         <TableBody>
-          {/* Revenue */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2">Revenue</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(totalRevenue)}</TableCell>
-          </TableRow>
-          
-          {/* COGS */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="border border-gray-300 p-2">COGS</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(totalVariableCosts)}</TableCell>
-          </TableRow>
-          
-          {/* Gross Margin */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2">Gross Margin</TableCell>
-            <TableCell className="text-right font-bold border border-gray-300 p-2">{formatCurrency(grossProfit)}</TableCell>
-          </TableRow>
-          
-          {/* Operating Expenses Header */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2" colSpan={2}>Operating Expenses</TableCell>
-          </TableRow>
-          
-          {/* Operating Expenses Line Items */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Land Levy</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(18000)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Wages and salaries</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(29250)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Protective Clothing</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(3220)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Fuel and lubricants</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(6435)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Electricity and water</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(66)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Stationery</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(240)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Cellphone charges</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(480)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Bank Charges</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(240)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Insurance</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(1800)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Wifi</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(1200)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Travel & Subsistence Allowance</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(1800)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Repairs & Maintanance</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(600)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">First aid kit</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(240)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Service kit</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(450)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Legal fees</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(216)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Consultancy</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(7200)}</TableCell>
-          </TableRow>
-          
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="pl-4 border border-gray-300 p-2">Add Sundries</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency(534)}</TableCell>
-          </TableRow>
-          
-          {/* Total Expenses */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2">Total Expenses</TableCell>
-            <TableCell className="text-right font-bold border border-gray-300 p-2">{formatCurrency(totalExpenses)}</TableCell>
-          </TableRow>
-          
-          {/* Earnings Before Interest & Taxes */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2">Earnings Before Interest & Taxes</TableCell>
-            <TableCell className="text-right font-bold border border-gray-300 p-2">{formatCurrency(operatingProfit)}</TableCell>
-          </TableRow>
-          
-          {/* Interest Expense */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="border border-gray-300 p-2">Interest Expense</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency('-')}</TableCell>
-          </TableRow>
-          
-          {/* Earnings Before Taxes */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="font-bold border border-gray-300 p-2">Earnings Before Taxes</TableCell>
-            <TableCell className="text-right font-bold border border-gray-300 p-2">{formatCurrency(operatingProfit)}</TableCell>
-          </TableRow>
-          
-          {/* Income Taxes */}
-          <TableRow className="border-b border-gray-300">
-            <TableCell className="border border-gray-300 p-2">Income Taxes</TableCell>
-            <TableCell className="text-right border border-gray-300 p-2">{formatCurrency('-')}</TableCell>
-          </TableRow>
-          
-          {/* Net Earnings */}
-          <TableRow className="border-b-2 border-black">
-            <TableCell className="font-bold border border-gray-300 p-2">Net Earnings</TableCell>
-            <TableCell className="text-right font-bold border border-gray-300 p-2">{formatCurrency(operatingProfit)}</TableCell>
-          </TableRow>
+          <RevenueSection totalRevenue={totalRevenue} />
+          <CogsSection totalVariableCosts={totalVariableCosts} />
+          <GrossMarginSection grossProfit={grossProfit} />
+          <OperatingExpensesSection expenses={operatingExpenses} />
+          <TotalExpensesSection totalExpenses={totalExpenses} />
+          <EbitSection operatingProfit={operatingProfit} />
+          <InterestExpenseSection />
+          <EbtSection operatingProfit={operatingProfit} />
+          <IncomeTaxesSection />
+          <NetEarningsSection operatingProfit={operatingProfit} />
         </TableBody>
       </Table>
     </div>
