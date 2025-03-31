@@ -90,7 +90,11 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair font-bold;
   }
 }
 
@@ -108,7 +112,7 @@
   }
   
   .slide-title {
-    @apply text-2xl md:text-3xl font-bold text-primary mb-2;
+    @apply text-2xl md:text-3xl font-bold text-primary mb-2 font-playfair;
   }
   
   .table-container {
@@ -135,8 +139,16 @@
     @apply fixed bottom-5 right-5 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 z-10;
   }
   
+  .print-menu {
+    @apply flex flex-col gap-2 w-64;
+  }
+  
+  .print-option-button {
+    @apply flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors;
+  }
+  
   @media print {
-    .print-button {
+    .print-button, .print-menu {
       @apply hidden;
     }
     

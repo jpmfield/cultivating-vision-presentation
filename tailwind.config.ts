@@ -101,8 +101,10 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
 			fontFamily: {
-				sans: ['Arial', 'sans-serif'],
+				sans: ['Montserrat', 'Arial', 'sans-serif'],
 				serif: ['Georgia', 'serif'],
+				playfair: ['"Playfair Display"', 'serif'],
+				montserrat: ['Montserrat', 'sans-serif'],
 			}
 		}
 	},
