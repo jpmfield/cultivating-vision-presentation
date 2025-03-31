@@ -18,27 +18,22 @@ interface IncomeStatementProps {
   revenueData: { name: string; value: number }[];
   variableCostsData: { name: string; value: number }[];
   fixedCostsTotal: number;
+  marketingCosts: number;
+  packingCosts: number;
 }
 
 const IncomeStatement: React.FC<IncomeStatementProps> = ({ 
   year, 
   revenueData, 
   variableCostsData,
-  fixedCostsTotal
+  fixedCostsTotal,
+  marketingCosts,
+  packingCosts
 }) => {
   // Calculate totals from given data
   const totalRevenue = 390225; // Exact value from screenshot
   const totalVariableCosts = 154219; // COGS value from screenshot
   const grossProfit = 236006; // Exact value from screenshot
-  
-  // Add the new marketing and packing costs to the total expenses
-  const marketingCosts = 34275.4;
-  const packingCosts = 3941.671;
-  const baseOperatingExpenses = 71971; // Original operating expenses
-  const totalExpenses = baseOperatingExpenses + marketingCosts + packingCosts; // Updated total
-  
-  // Recalculate operating profit with the new expenses
-  const operatingProfit = grossProfit - totalExpenses;
   
   // Define operating expenses
   const operatingExpenses = [
@@ -59,7 +54,23 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
     { name: 'Legal fees', value: 216 },
     { name: 'Consultancy', value: 7200 },
     { name: 'Add Sundries', value: 534 },
+    { name: 'Marketing Costs', value: marketingCosts },
+    { name: 'Packing Costs', value: packingCosts }
   ];
+  
+  // Calculate the total expenses with the added marketing and packing costs
+  const baseOperatingExpenses = operatingExpenses.reduce((sum, expense) => {
+    // Exclude marketing and packing costs from this calculation to avoid double counting
+    if (expense.name !== 'Marketing Costs' && expense.name !== 'Packing Costs') {
+      return sum + expense.value;
+    }
+    return sum;
+  }, 0);
+  
+  const totalExpenses = baseOperatingExpenses + marketingCosts + packingCosts;
+  
+  // Recalculate operating profit with the new expenses
+  const operatingProfit = grossProfit - totalExpenses;
 
   return (
     <div className="income-statement w-full">

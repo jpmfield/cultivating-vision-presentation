@@ -3,9 +3,13 @@ import React from 'react';
 import SlideContainer from '@/components/SlideContainer';
 import IncomeStatement from '@/components/IncomeStatement';
 import { revenueData } from '@/data/revenueData';
-import { variableCostsData } from '@/data/expenseData';
+import { variableCostsData, expenseData } from '@/data/expenseData';
 
 const IncomeStatementSlide: React.FC = () => {
+  // Find the marketing and packing costs from expenseData
+  const marketingCosts = expenseData.find(item => item.name === 'Marketing Costs')?.value || 0;
+  const packingCosts = expenseData.find(item => item.name === 'Packing Costs')?.value || 0;
+  
   return (
     <SlideContainer id="income-statement">
       <div className="slide-header">
@@ -18,6 +22,8 @@ const IncomeStatementSlide: React.FC = () => {
         revenueData={revenueData}
         variableCostsData={variableCostsData}
         fixedCostsTotal={72151}
+        marketingCosts={marketingCosts}
+        packingCosts={packingCosts}
       />
     </SlideContainer>
   );

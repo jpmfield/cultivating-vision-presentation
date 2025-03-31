@@ -14,8 +14,6 @@ const OperatingExpensesSection: React.FC<OperatingExpenseSectionProps> = ({ expe
       {expenses.map((expense, index) => (
         <ExpenseLineItem key={index} name={expense.name} value={expense.value} />
       ))}
-      <ExpenseLineItem name="Marketing Costs" value={34275.4} />
-      <ExpenseLineItem name="Packing Costs" value={3941.671} />
     </>
   );
 };

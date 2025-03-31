@@ -9,6 +9,8 @@ interface CashFlowStatementProps {
     Revenue: number;
     Variable: number;
     Fixed: number;
+    Marketing: number;
+    Packing: number;
     CAPEX: number;
     Total: number;
     NetCashFlow: number;
@@ -20,8 +22,10 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
   const totalRevenue = cashFlowData.reduce((sum, item) => sum + item.Revenue, 0);
   const totalVariable = cashFlowData.reduce((sum, item) => sum + item.Variable, 0);
   const totalFixed = cashFlowData.reduce((sum, item) => sum + item.Fixed, 0);
+  const totalMarketing = cashFlowData.reduce((sum, item) => sum + (item.Marketing || 0), 0);
+  const totalPacking = cashFlowData.reduce((sum, item) => sum + (item.Packing || 0), 0);
   const totalCapex = cashFlowData.reduce((sum, item) => sum + (item.CAPEX || 0), 0);
-  const totalOutflow = cashFlowData.reduce((sum, item) => sum + item.Total, 0);
+  const totalOutflow = totalVariable + totalFixed + totalMarketing + totalPacking + totalCapex;
   const netCashFlow = totalRevenue - totalOutflow;
 
   return (
@@ -36,6 +40,8 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               <th className="text-right">Revenue</th>
               <th className="text-right">Variable Costs</th>
               <th className="text-right">Fixed Costs</th>
+              <th className="text-right">Marketing</th>
+              <th className="text-right">Packing</th>
               <th className="text-right">CAPEX</th>
               <th className="text-right">Net Cash Flow</th>
             </tr>
@@ -47,6 +53,8 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
                 <td className="text-right text-green-600">{formatCurrency(month.Revenue)}</td>
                 <td className="text-right text-red-500">{formatCurrency(month.Variable)}</td>
                 <td className="text-right text-red-500">{formatCurrency(month.Fixed)}</td>
+                <td className="text-right text-red-500">{formatCurrency(month.Marketing || 0)}</td>
+                <td className="text-right text-red-500">{formatCurrency(month.Packing || 0)}</td>
                 <td className="text-right text-red-500">{month.CAPEX ? formatCurrency(month.CAPEX) : '$-'}</td>
                 <td className={`text-right ${month.NetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                   {formatCurrency(month.NetCashFlow)}
@@ -59,6 +67,8 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               <td className="text-right text-green-600">{formatCurrency(totalRevenue)}</td>
               <td className="text-right text-red-500">{formatCurrency(totalVariable)}</td>
               <td className="text-right text-red-500">{formatCurrency(totalFixed)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalMarketing)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalPacking)}</td>
               <td className="text-right text-red-500">{formatCurrency(totalCapex)}</td>
               <td className={`text-right ${netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {formatCurrency(netCashFlow)}
