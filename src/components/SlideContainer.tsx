@@ -16,7 +16,7 @@ const SlideContainer: React.FC<SlideContainerProps> = ({ children, id, className
         "slide-container w-full max-w-5xl mx-auto my-12 bg-white rounded-xl shadow-lg overflow-hidden",
         "border border-gray-100 print:shadow-none print:my-0 print:p-0",
         "print:max-w-none print:w-[297mm] print:h-[210mm] print:overflow-hidden", 
-        "transition-all duration-300 hover:shadow-xl",
+        "transition-all duration-300 hover:shadow-xl animate-fade-in",
         className
       )}
       style={{
