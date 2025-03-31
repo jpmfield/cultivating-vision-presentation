@@ -24,18 +24,37 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
     console.log(`Processing slide ${i + 1}/${slides.length}`);
     
     try {
+      // Scale factor for better quality
+      const scale = 2;
+      
       const canvas = await html2canvas(slide, {
-        scale: 2,
+        scale: scale,
         useCORS: true,
         logging: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
+        // Set a fixed width to match A4 proportions
+        width: 1240, // Approximately A4 width at 150 DPI
+        height: 1754, // Approximately A4 height at 150 DPI
+        onclone: (document) => {
+          // For the cloned document that will be rendered, we can set explicit dimensions
+          const clonedSlide = document.querySelector(`#${slide.id}`) as HTMLElement;
+          if (clonedSlide) {
+            clonedSlide.style.width = "210mm";
+            clonedSlide.style.minHeight = "297mm";
+            clonedSlide.style.maxHeight = "297mm";
+            clonedSlide.style.margin = "0";
+            clonedSlide.style.padding = "0";
+            clonedSlide.style.overflow = "hidden";
+          }
+        }
       });
       
       const imgData = canvas.toDataURL('image/png');
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      // A4 dimensions in mm
+      const pdfWidth = 210;
+      const pdfHeight = 297;
       
       if (!isFirstPage) {
         pdf.addPage();
@@ -43,7 +62,8 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
         isFirstPage = false;
       }
       
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      // Add image exactly fitting to A4 page (no stretch/distortion)
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       console.log(`Slide ${i + 1} added to PDF`);
       
     } catch (error) {
@@ -56,77 +76,75 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
   console.log('PDF saved successfully!');
 };
 
-// Export the entire presentation as a single PDF
+// Export the entire presentation as a single PDF with perfect page fitting
 export const exportEntirePresentation = async (filename: string = 'kuguta-budget-complete.pdf') => {
-  const container = document.getElementById('presentation-container');
-  if (!container) {
-    console.error('Presentation container not found');
-    return;
-  }
+  // Hide print buttons during export
+  const printButtons = document.querySelectorAll('.print-button, .print-menu');
+  printButtons.forEach(button => {
+    (button as HTMLElement).style.display = 'none';
+  });
 
-  console.log('Exporting entire presentation as a single PDF...');
-  
   try {
-    // Temporarily hide the print buttons to avoid them showing in the PDF
-    const printButtons = document.querySelectorAll('.print-button');
-    printButtons.forEach(button => {
-      (button as HTMLElement).style.display = 'none';
-    });
+    const slides = document.querySelectorAll('.slide-container');
+    console.log(`Found ${slides.length} slides to export in full presentation`);
     
-    const canvas = await html2canvas(container, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      windowWidth: 1200, // Set a consistent width for better results
-      onclone: (clonedDoc) => {
-        // Additional processing on the cloned document if needed
-        const clonedSlides = clonedDoc.querySelectorAll('.slide-container');
-        clonedSlides.forEach((slide) => {
-          (slide as HTMLElement).style.marginBottom = '30px';
-          (slide as HTMLElement).style.pageBreakAfter = 'always';
-        });
-      }
-    });
-    
-    const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
-    
-    const imgWidth = 210; // A4 width in mm
-    const pageHeight = 297; // A4 height in mm
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    
-    // Add the entire canvas to the PDF, potentially spanning multiple pages
-    let heightLeft = imgHeight;
-    let position = 0;
     let isFirstPage = true;
-    
-    while (heightLeft > 0) {
+
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i] as HTMLElement;
+      
+      console.log(`Processing slide ${i + 1}/${slides.length} for full presentation`);
+      
+      // Scale factor for better quality
+      const scale = 2;
+      
+      const canvas = await html2canvas(slide, {
+        scale: scale,
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        // Set a fixed width to match A4 proportions
+        width: 1240, // Approximately A4 width at 150 DPI
+        height: 1754, // Approximately A4 height at 150 DPI
+        onclone: (document) => {
+          // For the cloned document that will be rendered, we can set explicit dimensions
+          const clonedSlide = document.querySelector(`#${slide.id}`) as HTMLElement;
+          if (clonedSlide) {
+            clonedSlide.style.width = "210mm";
+            clonedSlide.style.minHeight = "297mm";
+            clonedSlide.style.maxHeight = "297mm";
+            clonedSlide.style.margin = "0";
+            clonedSlide.style.padding = "0";
+            clonedSlide.style.overflow = "hidden";
+          }
+        }
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      
+      // A4 dimensions in mm
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+      
       if (!isFirstPage) {
         pdf.addPage();
       } else {
         isFirstPage = false;
       }
       
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      position -= pageHeight;
+      // Add image exactly fitting to A4 page
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     }
     
+    console.log('Full presentation PDF export completed, saving file...');
     pdf.save(filename);
-    console.log('Complete presentation PDF saved successfully!');
-    
-    // Restore print buttons
-    printButtons.forEach(button => {
-      (button as HTMLElement).style.display = '';
-    });
-    
+    console.log('Full PDF saved successfully!');
   } catch (error) {
     console.error('Error exporting entire presentation:', error);
-    
-    // Restore print buttons on error
-    const printButtons = document.querySelectorAll('.print-button');
+  } finally {
+    // Restore print buttons
     printButtons.forEach(button => {
       (button as HTMLElement).style.display = '';
     });

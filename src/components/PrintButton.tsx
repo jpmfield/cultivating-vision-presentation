@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const PrintButton: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-
+  
   const handlePrint = () => {
     window.print();
   };
@@ -47,7 +47,7 @@ const PrintButton: React.FC = () => {
             disabled={isExporting}
           >
             <Download size={20} />
-            <span>Export Slides</span>
+            <span>Export Slides (Page-Fitted)</span>
           </button>
           
           <button 
@@ -57,7 +57,7 @@ const PrintButton: React.FC = () => {
             disabled={isExporting}
           >
             <FileText size={20} />
-            <span>Export Full Presentation</span>
+            <span>Export Full Presentation (A4)</span>
           </button>
           
           <button 
