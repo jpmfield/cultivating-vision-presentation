@@ -19,7 +19,7 @@ const SlideContainer: React.FC<SlideContainerProps> = ({ children, id, className
         className
       )}
     >
-      <div className="slide-content bg-white z-10 relative p-6 rounded-md shadow-sm print:shadow-none">
+      <div className="slide-content bg-white z-10 relative p-6 rounded-md shadow-sm print:shadow-none print:p-4 print:overflow-hidden print:max-h-[277mm]">
         {children}
       </div>
     </div>

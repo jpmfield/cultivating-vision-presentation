@@ -30,21 +30,21 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
 
   return (
     <div className="cash-flow-statement">
-      <h3 className="text-xl font-semibold mb-4">Cash Flow Statement (April 2025 - March 2026)</h3>
+      <h3 className="text-xl font-semibold mb-2 print:text-lg">Cash Flow Statement (April 2025 - March 2026)</h3>
       
-      <div className="table-container overflow-x-auto">
-        <table className="data-table">
+      <div className="table-container overflow-x-auto print:text-xs">
+        <table className="data-table w-full">
           <thead>
             <tr>
-              <th>Month</th>
-              <th className="text-right">Revenue</th>
-              <th className="text-right">Variable Costs</th>
-              <th className="text-right">Fixed Costs</th>
-              <th className="text-right">Marketing</th>
-              <th className="text-right">Packing</th>
-              <th className="text-right">CAPEX</th>
-              <th className="text-right">Total Outflow</th>
-              <th className="text-right">Net Cash Flow</th>
+              <th className="w-[12%]">Month</th>
+              <th className="text-right w-[11%]">Revenue</th>
+              <th className="text-right w-[11%]">Variable</th>
+              <th className="text-right w-[11%]">Fixed</th>
+              <th className="text-right w-[11%]">Marketing</th>
+              <th className="text-right w-[11%]">Packing</th>
+              <th className="text-right w-[11%]">CAPEX</th>
+              <th className="text-right w-[11%]">Outflow</th>
+              <th className="text-right w-[11%]">Net Flow</th>
             </tr>
           </thead>
           <tbody>
@@ -81,10 +81,10 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
         </table>
       </div>
       
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-3 bg-gray-50 rounded">
+      <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 print:text-xs print:gap-1">
+        <div className="p-2 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Cash Flow Summary</p>
-          <p className="text-sm mt-1">
+          <p className="text-xs mt-1">
             Total Inflow: <span className="text-green-600">{formatCurrency(totalRevenue)}</span><br />
             Total Outflow: <span className="text-red-500">{formatCurrency(totalOutflow)}</span><br />
             Net Position: <span className={netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}>
@@ -93,9 +93,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           </p>
         </div>
         
-        <div className="p-3 bg-gray-50 rounded">
+        <div className="p-2 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Key Insights</p>
-          <ul className="text-sm mt-1 list-disc list-inside">
+          <ul className="text-xs mt-1 list-disc list-inside">
             <li>Negative cash flow in early months (Apr-Oct)</li>
             <li>Peak outflow: CAPEX investments in May</li>
             <li>Revenue starts in June, increases from August</li>
@@ -104,9 +104,9 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
           </ul>
         </div>
         
-        <div className="p-3 bg-gray-50 rounded">
+        <div className="p-2 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Financial Health</p>
-          <p className="text-sm mt-1">
+          <p className="text-xs mt-1">
             Despite initial negative cash flow due to startup investments and seasonal expenses, the farm achieves a strong positive net cash position by fiscal year end, demonstrating financial sustainability.
           </p>
         </div>
