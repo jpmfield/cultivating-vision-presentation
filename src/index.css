@@ -141,7 +141,7 @@
     }
     
     .slide-container {
-      @apply shadow-none mb-0 page-break-after-always;
+      @apply shadow-none mb-0 break-after-page;
     }
     
     body {
