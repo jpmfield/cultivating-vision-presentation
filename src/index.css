@@ -101,8 +101,8 @@
 @layer components {
   .slide-container {
     @apply max-w-5xl mx-auto mb-16 bg-white rounded-lg shadow-lg overflow-hidden;
-    /* Add dimensions that match A4 proportions for better export */
-    aspect-ratio: 210 / 297;
+    /* Changed aspect ratio to match A4 landscape */
+    aspect-ratio: 297 / 210;
   }
   
   .slide-content {
@@ -156,8 +156,8 @@
     
     .slide-container {
       @apply shadow-none mb-0 break-after-page;
-      width: 210mm;
-      height: 297mm;
+      width: 297mm;
+      height: 210mm;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -174,8 +174,8 @@
     }
     
     html, body {
-      width: 210mm;
-      height: 297mm;
+      width: 297mm;
+      height: 210mm;
     }
     
     .slide-content {

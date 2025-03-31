@@ -11,7 +11,7 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
 
   // Get all slide containers
   const slides = document.querySelectorAll('.slide-container');
-  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pdf = new jsPDF('landscape', 'mm', 'a4'); // Changed to landscape
   let isFirstPage = true;
 
   // Show a loading indicator in the console
@@ -27,10 +27,10 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       // Scale factor for better quality
       const scale = 2;
       
-      // Create a temporary container with exact A4 dimensions for capturing
+      // Create a temporary container with exact A4 landscape dimensions for capturing
       const tempContainer = document.createElement('div');
-      tempContainer.style.width = '210mm';
-      tempContainer.style.height = '297mm';
+      tempContainer.style.width = '297mm'; // A4 landscape width
+      tempContainer.style.height = '210mm'; // A4 landscape height
       tempContainer.style.position = 'absolute';
       tempContainer.style.left = '-9999px';
       tempContainer.style.overflow = 'hidden';
@@ -58,8 +58,8 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
         logging: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        width: 595, // A4 width in points at 72 DPI
-        height: 842, // A4 height in points at 72 DPI
+        width: 842, // A4 landscape width in points at 72 DPI
+        height: 595, // A4 landscape height in points at 72 DPI
       });
       
       // Remove the temp container
@@ -67,9 +67,9 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       
       const imgData = canvas.toDataURL('image/png');
       
-      // A4 dimensions in mm
-      const pdfWidth = 210;
-      const pdfHeight = 297;
+      // A4 dimensions in mm for landscape
+      const pdfWidth = 297;
+      const pdfHeight = 210;
       
       if (!isFirstPage) {
         pdf.addPage();
@@ -103,7 +103,7 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
     const slides = document.querySelectorAll('.slide-container');
     console.log(`Found ${slides.length} slides to export in full presentation`);
     
-    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdf = new jsPDF('landscape', 'mm', 'a4'); // Changed to landscape
     let isFirstPage = true;
 
     for (let i = 0; i < slides.length; i++) {
@@ -111,10 +111,10 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       
       console.log(`Processing slide ${i + 1}/${slides.length} for full presentation`);
       
-      // Create a temporary container with exact A4 dimensions
+      // Create a temporary container with exact A4 landscape dimensions
       const tempContainer = document.createElement('div');
-      tempContainer.style.width = '210mm';
-      tempContainer.style.height = '297mm';
+      tempContainer.style.width = '297mm'; // A4 landscape width
+      tempContainer.style.height = '210mm'; // A4 landscape height
       tempContainer.style.position = 'absolute';
       tempContainer.style.left = '-9999px';
       tempContainer.style.overflow = 'hidden';
@@ -145,8 +145,8 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
         logging: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        width: 595, // A4 width in points at 72 DPI
-        height: 842, // A4 height in points at 72 DPI
+        width: 842, // A4 landscape width in points at 72 DPI
+        height: 595, // A4 landscape height in points at 72 DPI
       });
       
       // Remove the temp container
@@ -154,9 +154,9 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       
       const imgData = canvas.toDataURL('image/png');
       
-      // A4 dimensions in mm
-      const pdfWidth = 210;
-      const pdfHeight = 297;
+      // A4 dimensions in mm for landscape
+      const pdfWidth = 297;
+      const pdfHeight = 210;
       
       if (!isFirstPage) {
         pdf.addPage();
