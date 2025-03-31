@@ -33,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 142 69% 25%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -90,7 +90,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans text-sm;
+    @apply bg-gray-50 text-foreground font-sans text-sm;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -100,25 +100,25 @@
 
 @layer components {
   .slide-container {
-    @apply max-w-5xl mx-auto mb-16 bg-white rounded-lg shadow-lg overflow-hidden;
+    @apply max-w-5xl mx-auto mb-16 bg-white rounded-xl shadow-lg overflow-hidden;
     /* A4 landscape aspect ratio */
     aspect-ratio: 297 / 210;
   }
   
   .slide-content {
-    @apply p-6;
+    @apply p-8;
   }
   
   .slide-header {
-    @apply border-b border-gray-200 pb-3 mb-4;
+    @apply border-b border-gray-200 pb-4 mb-6;
   }
   
   .slide-title {
-    @apply text-xl md:text-2xl font-bold text-primary mb-2 font-playfair;
+    @apply text-2xl md:text-3xl font-bold text-primary mb-2 font-playfair;
   }
   
   .table-container {
-    @apply overflow-x-auto;
+    @apply overflow-x-auto rounded-lg border border-gray-100 shadow-sm;
   }
   
   .data-table {
@@ -126,11 +126,11 @@
   }
   
   .data-table th {
-    @apply bg-gray-50 text-left px-3 py-1 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
+    @apply bg-gray-50 text-left px-4 py-3 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
   }
   
   .data-table td {
-    @apply border-b border-gray-200 px-3 py-1 text-sm;
+    @apply border-b border-gray-200 px-4 py-3 text-sm;
   }
   
   .data-table tr:hover {
@@ -147,6 +147,22 @@
   
   .print-option-button {
     @apply flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors;
+  }
+
+  /* Animations */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   @media print {
@@ -181,31 +197,35 @@
     }
     
     .slide-content {
-      padding: 3mm !important;
+      padding: 10mm !important;
       margin: 0 !important;
     }
     
     .slide-title {
-      @apply text-sm;
-      margin-bottom: 1mm !important;
+      @apply text-lg;
+      margin-bottom: 3mm !important;
+    }
+    
+    .slide-header {
+      @apply pb-2 mb-4;
     }
     
     .data-table {
-      @apply text-[6pt];
+      @apply text-[8pt];
     }
     
     .data-table th,
     .data-table td {
-      @apply py-0 px-0.5;
+      @apply py-1 px-1;
     }
     
     .grid {
-      gap: 1mm !important;
+      gap: 4mm !important;
     }
     
     h1, h2, h3, h4, h5, h6, p {
       margin-top: 0 !important;
-      margin-bottom: 1mm !important;
+      margin-bottom: 2mm !important;
     }
   }
 }
