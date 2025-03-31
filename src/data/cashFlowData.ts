@@ -43,7 +43,7 @@ export const monthlyOutflowData = [
     CAPEX: 12600,
     Marketing: 2856.28,
     Packing: 328.47,
-    Total: 48619 
+    Total: 51803.75 
   },
   { 
     name: 'Sep-25', 
@@ -52,7 +52,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 2856.28,
     Packing: 328.47,
-    Total: 51619 
+    Total: 54803.75 
   },
   { 
     name: 'Oct-25', 
@@ -61,7 +61,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 2856.28,
     Packing: 328.47,
-    Total: 18729 
+    Total: 21913.75 
   },
   { 
     name: 'Nov-25', 
@@ -70,7 +70,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 2856.28,
     Packing: 328.47,
-    Total: 15679 
+    Total: 18863.75 
   },
   { 
     name: 'Dec-25', 
@@ -79,7 +79,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 5712.57,
     Packing: 656.95,
-    Total: 5629 
+    Total: 11998.52 
   },
   { 
     name: 'Jan-26', 
@@ -88,7 +88,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 5712.57,
     Packing: 656.95,
-    Total: 5629 
+    Total: 11998.52 
   },
   { 
     name: 'Feb-26', 
@@ -97,7 +97,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 5712.57,
     Packing: 656.95,
-    Total: 5978 
+    Total: 12347.52 
   },
   { 
     name: 'Mar-26', 
@@ -106,7 +106,7 @@ export const monthlyOutflowData = [
     CAPEX: 0,
     Marketing: 5712.57,
     Packing: 656.95,
-    Total: 5781 
+    Total: 12150.52 
   },
 ];
 

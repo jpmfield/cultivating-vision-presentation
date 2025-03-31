@@ -43,6 +43,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               <th className="text-right">Marketing</th>
               <th className="text-right">Packing</th>
               <th className="text-right">CAPEX</th>
+              <th className="text-right">Total Outflow</th>
               <th className="text-right">Net Cash Flow</th>
             </tr>
           </thead>
@@ -56,6 +57,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
                 <td className="text-right text-red-500">{formatCurrency(month.Marketing || 0)}</td>
                 <td className="text-right text-red-500">{formatCurrency(month.Packing || 0)}</td>
                 <td className="text-right text-red-500">{month.CAPEX ? formatCurrency(month.CAPEX) : '$-'}</td>
+                <td className="text-right text-red-500">{formatCurrency(month.Total)}</td>
                 <td className={`text-right ${month.NetCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                   {formatCurrency(month.NetCashFlow)}
                 </td>
@@ -70,6 +72,7 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
               <td className="text-right text-red-500">{formatCurrency(totalMarketing)}</td>
               <td className="text-right text-red-500">{formatCurrency(totalPacking)}</td>
               <td className="text-right text-red-500">{formatCurrency(totalCapex)}</td>
+              <td className="text-right text-red-500">{formatCurrency(totalOutflow)}</td>
               <td className={`text-right ${netCashFlow >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {formatCurrency(netCashFlow)}
               </td>
@@ -93,10 +96,11 @@ const CashFlowStatement: React.FC<CashFlowStatementProps> = ({ cashFlowData }) =
         <div className="p-3 bg-gray-50 rounded">
           <p className="text-sm font-semibold">Key Insights</p>
           <ul className="text-sm mt-1 list-disc list-inside">
-            <li>Negative cash flow in early months (Apr-Sep)</li>
+            <li>Negative cash flow in early months (Apr-Oct)</li>
             <li>Peak outflow: CAPEX investments in May</li>
             <li>Revenue starts in June, increases from August</li>
-            <li>Positive cash flow begins December 2025</li>
+            <li>Positive cash flow begins November 2025</li>
+            <li>Marketing & Packing costs increase from August</li>
           </ul>
         </div>
         

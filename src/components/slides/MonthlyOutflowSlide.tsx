@@ -16,17 +16,17 @@ const MonthlyOutflowSlide: React.FC = () => {
       
       <div className="mb-8">
         <DataTable 
-          headers={['Month', 'Variable Costs', 'Fixed Costs', 'CAPEX', 'Total Monthly Outflow']}
+          headers={['Month', 'Variable Costs', 'Fixed Costs', 'Marketing', 'Packing', 'CAPEX', 'Total Monthly Outflow']}
           data={[
-            ['Apr-25', '$15,570', '$9,229', '$26,607', '$51,406'],
-            ['May-25', '$15,570', '$5,629', '$80,400', '$101,599'],
-            ['Jun-25', '$11,090', '$5,629', '$50,000', '$66,719'],
-            ['Jul-25', '$12,960', '$5,629', '$30,000', '$48,589'],
-            ['Aug-25', '$30,390', '$5,629', '$12,600', '$48,619'],
-            ['Sep-25', '$45,490', '$6,129', '-', '$51,619'],
+            ['Apr-25', '$15,570', '$9,229', '$0', '$0', '$26,607', '$51,406'],
+            ['May-25', '$15,570', '$5,629', '$0', '$0', '$80,400', '$101,599'],
+            ['Jun-25', '$11,090', '$5,629', '$0', '$0', '$50,000', '$66,719'],
+            ['Jul-25', '$12,960', '$5,629', '$0', '$0', '$30,000', '$48,589'],
+            ['Aug-25', '$30,390', '$5,629', '$2,856', '$328', '$12,600', '$51,804'],
+            ['Sep-25', '$45,490', '$6,129', '$2,856', '$328', '-', '$54,804'],
           ]}
         />
-        <p className="text-sm text-gray-500 mt-2">Total Annual Outflow: $425,977</p>
+        <p className="text-sm text-gray-500 mt-2">Total Annual Outflow: $464,194</p>
       </div>
       
       <ChartContainer title="Monthly Outflow Distribution" height={400}>
@@ -35,6 +35,8 @@ const MonthlyOutflowSlide: React.FC = () => {
           bars={[
             { dataKey: 'Variable', color: '#ea384c', name: 'Variable Costs' },
             { dataKey: 'Fixed', color: '#FEC6A1', name: 'Fixed Costs' },
+            { dataKey: 'Marketing', color: '#06D6A0', name: 'Marketing' },
+            { dataKey: 'Packing', color: '#FFD166', name: 'Packing' },
             { dataKey: 'CAPEX', color: '#1EAEDB' },
           ]}
         />
