@@ -4,6 +4,7 @@ import SlideContainer from '@/components/SlideContainer';
 import DataTable from '@/components/DataTable';
 import ChartContainer from '@/components/ChartContainer';
 import PieChart from '@/components/PieChart';
+import BudgetNote from '@/components/BudgetNote';
 import { revenueData, revenueColors } from '@/data/revenueData';
 
 const ExecutiveSummarySlide: React.FC = () => {
@@ -36,6 +37,8 @@ const ExecutiveSummarySlide: React.FC = () => {
               <li>Maximizing margins (92% for greenhouse tomatoes)</li>
             </ul>
           </div>
+          
+          <BudgetNote className="mt-6" />
         </div>
         
         <div>

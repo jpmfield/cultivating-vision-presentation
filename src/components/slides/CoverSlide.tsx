@@ -1,6 +1,7 @@
 
 import React from 'react';
 import SlideContainer from '@/components/SlideContainer';
+import BudgetNote from '@/components/BudgetNote';
 
 const CoverSlide: React.FC = () => {
   return (
@@ -23,6 +24,8 @@ const CoverSlide: React.FC = () => {
             "Nurturing Land, Empowering Community, Building Sustainable Futures"
           </p>
         </div>
+        
+        <BudgetNote className="max-w-xl mb-6" />
         
         <p className="text-gray-500 mt-4">April 2025 – March 2026</p>
         
