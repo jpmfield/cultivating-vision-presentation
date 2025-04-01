@@ -33,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 142 69% 25%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -90,7 +90,7 @@
   }
 
   body {
-    @apply bg-gray-50 text-foreground font-sans text-sm;
+    @apply bg-background text-foreground font-sans text-sm;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -100,41 +100,37 @@
 
 @layer components {
   .slide-container {
-    @apply max-w-5xl mx-auto mb-16 bg-white rounded-xl shadow-lg overflow-hidden;
+    @apply max-w-5xl mx-auto mb-16 bg-white rounded-lg shadow-lg overflow-hidden;
     /* A4 landscape aspect ratio */
     aspect-ratio: 297 / 210;
-    page-break-after: always;
-    break-after: page;
   }
   
   .slide-content {
-    @apply p-8;
-    box-sizing: border-box;
+    @apply p-6;
   }
   
   .slide-header {
-    @apply border-b border-gray-200 pb-4 mb-6;
+    @apply border-b border-gray-200 pb-3 mb-4;
   }
   
   .slide-title {
-    @apply text-2xl md:text-3xl font-bold text-primary mb-2 font-playfair;
+    @apply text-xl md:text-2xl font-bold text-primary mb-2 font-playfair;
   }
   
   .table-container {
-    @apply overflow-x-auto rounded-lg border border-gray-100 shadow-sm;
+    @apply overflow-x-auto;
   }
   
   .data-table {
     @apply min-w-full border-collapse text-sm;
-    table-layout: fixed;
   }
   
   .data-table th {
-    @apply bg-gray-50 text-left px-4 py-3 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
+    @apply bg-gray-50 text-left px-3 py-1 border-b-2 border-gray-200 font-semibold text-gray-700 text-sm;
   }
   
   .data-table td {
-    @apply border-b border-gray-200 px-4 py-3 text-sm;
+    @apply border-b border-gray-200 px-3 py-1 text-sm;
   }
   
   .data-table tr:hover {
@@ -152,38 +148,23 @@
   .print-option-button {
     @apply flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors;
   }
-
-  /* Animations */
-  .fade-in {
-    @apply animate-fade-in;
-  }
   
   @media print {
-    @page {
-      size: A4 landscape;
-      margin: 0;
-    }
-    
     .print-button, .print-menu {
       @apply hidden;
     }
     
     .slide-container {
       @apply shadow-none mb-0 break-after-page;
-      width: 297mm !important;
-      height: 210mm !important;
+      width: 297mm;
+      height: 210mm;
       margin: 0 !important;
       padding: 0 !important;
-      overflow: hidden !important;
-      page-break-after: always !important;
-      break-after: page !important;
-      box-sizing: border-box !important;
+      overflow: hidden;
     }
     
     body {
       @apply bg-white;
-      margin: 0 !important;
-      padding: 0 !important;
     }
 
     /* Additional print-specific styles */
@@ -193,63 +174,38 @@
     }
     
     html, body {
-      width: 297mm !important;
-      height: 210mm !important;
+      width: 297mm;
+      height: 210mm;
       margin: 0 !important;
       padding: 0 !important;
     }
     
     .slide-content {
-      padding: 10mm !important;
+      padding: 3mm !important;
       margin: 0 !important;
-      max-height: 190mm !important;
-      overflow: hidden !important;
-      box-sizing: border-box !important;
     }
     
     .slide-title {
-      @apply text-lg;
-      margin-bottom: 3mm !important;
-    }
-    
-    .slide-header {
-      @apply pb-2 mb-4;
+      @apply text-sm;
+      margin-bottom: 1mm !important;
     }
     
     .data-table {
-      @apply text-[8pt];
-      width: 100% !important;
-      table-layout: fixed !important;
+      @apply text-[6pt];
     }
     
     .data-table th,
     .data-table td {
-      @apply py-1 px-1;
-      word-wrap: break-word !important;
+      @apply py-0 px-0.5;
     }
     
     .grid {
-      gap: 4mm !important;
-      grid-template-columns: 1fr 1fr !important;
+      gap: 1mm !important;
     }
     
     h1, h2, h3, h4, h5, h6, p {
       margin-top: 0 !important;
-      margin-bottom: 2mm !important;
-    }
-    
-    /* Specific adjustments for cash flow statement */
-    #cash-flow-statement .data-table {
-      font-size: 5.5pt !important;
-    }
-    
-    #cash-flow-statement .slide-content {
-      padding: 5mm !important;
-    }
-    
-    #cash-flow-statement td, 
-    #cash-flow-statement th {
-      padding: 0.2mm 0.5mm !important;
+      margin-bottom: 1mm !important;
     }
   }
 }

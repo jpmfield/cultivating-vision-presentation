@@ -34,39 +34,35 @@ const LineChart: React.FC<LineChartProps> = ({ data, lines }) => {
           top: 20,
           right: 30,
           left: 20,
-          bottom: 10,
+          bottom: 5,
         }}
-        className="text-xs"
+        className="print:text-[5pt]"
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="name" 
-          axisLine={{ stroke: '#e5e7eb' }}
-          tickLine={false}
-          tick={{ fill: '#6b7280', fontSize: 12 }}
-          dy={10}
+          tick={{ fontSize: 12 }} 
+          tickMargin={5}
+          className="print:text-[5pt]"
         />
         <YAxis 
-          axisLine={{ stroke: '#e5e7eb' }}
-          tickLine={false}
-          tick={{ fill: '#6b7280', fontSize: 12 }}
-          tickFormatter={(value) => `$${(value/1000).toLocaleString()}k`}
+          tick={{ fontSize: 12 }}
+          tickFormatter={(value) => `$${Math.round(value/1000)}k`}
+          className="print:text-[5pt]"
         />
         <Tooltip 
-          formatter={(value: number) => [`$${value.toLocaleString()}`, '']}
-          contentStyle={{ 
-            borderRadius: '8px', 
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
-            border: 'none',
-            padding: '10px',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)'
-          }}
-          itemStyle={{ padding: '4px 0' }}
-          labelStyle={{ fontWeight: 'bold', marginBottom: '8px' }}
+          formatter={(value: number) => `$${value.toLocaleString()}`}
+          contentStyle={{ fontSize: '12px' }}
+          wrapperStyle={{ zIndex: 1000 }}
+          itemStyle={{ padding: '2px 0' }}
         />
         <Legend 
-          wrapperStyle={{ paddingTop: '20px' }}
-          iconType="circle" 
+          wrapperStyle={{ 
+            fontSize: '12px',
+            paddingTop: '10px',
+            paddingBottom: '5px'
+          }}
+          className="print:text-[5pt]"
         />
         {lines.map((line, index) => (
           <Line
@@ -75,9 +71,10 @@ const LineChart: React.FC<LineChartProps> = ({ data, lines }) => {
             dataKey={line.dataKey}
             name={line.name || line.dataKey}
             stroke={line.color}
+            activeDot={{ r: 8 }}
             strokeWidth={2}
-            dot={{ r: 4, strokeWidth: 2 }}
-            activeDot={{ r: 6, strokeWidth: 0 }}
+            dot={{ strokeWidth: 1 }}
+            className="print:opacity-100" // Ensure lines are visible in print
           />
         ))}
       </RechartsLineChart>

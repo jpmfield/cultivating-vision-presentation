@@ -12,9 +12,7 @@ const CashFlowStatementSlide: React.FC = () => {
         <p className="text-gray-600 text-sm print:text-[8px]">Monthly Cash Flow Analysis</p>
       </div>
       
-      <div className="print:scale-[0.85] print:origin-top-left print:mt-[-5mm]">
-        <CashFlowStatement cashFlowData={cashFlowForecastData} />
-      </div>
+      <CashFlowStatement cashFlowData={cashFlowForecastData} />
     </SlideContainer>
   );
 };
