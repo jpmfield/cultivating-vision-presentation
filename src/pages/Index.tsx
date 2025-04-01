@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, CalendarDays, FileBarChart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import PrintButton from '@/components/PrintButton';
 import CoverSlide from '@/components/slides/CoverSlide';
 import ExecutiveSummarySlide from '@/components/slides/ExecutiveSummarySlide';
@@ -84,6 +85,31 @@ const Index = () => {
               {slide.title}
             </button>
           ))}
+        </div>
+        
+        {/* Links to additional documents - hidden on print */}
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <h3 className="text-lg font-semibold text-primary mb-3">Additional Farm Planning Documents</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link to="/implementation-plan">
+              <Button variant="outline" className="w-full justify-start h-auto py-3">
+                <FileBarChart className="mr-2 h-5 w-5" />
+                <div className="text-left">
+                  <p className="font-medium">Farm Implementation Plan</p>
+                  <p className="text-sm text-gray-500">Strategic execution timeline and milestones</p>
+                </div>
+              </Button>
+            </Link>
+            <Link to="/crop-calendar">
+              <Button variant="outline" className="w-full justify-start h-auto py-3">
+                <CalendarDays className="mr-2 h-5 w-5" />
+                <div className="text-left">
+                  <p className="font-medium">Farm Crop Calendar</p>
+                  <p className="text-sm text-gray-500">Seasonal planting and harvesting schedule</p>
+                </div>
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       
