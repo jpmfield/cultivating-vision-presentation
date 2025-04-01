@@ -7,10 +7,10 @@ import { variableCostsData } from '@/data/expenseData';
 
 const IncomeStatementSlide: React.FC = () => {
   return (
-    <SlideContainer id="income-statement">
-      <div className="slide-header">
-        <h2 className="slide-title">Income Statement</h2>
-        <p className="text-gray-600">Fiscal Year 2025-2026</p>
+    <SlideContainer id="income-statement" className="print:scale-95 print:origin-top-left">
+      <div className="slide-header print:mb-1">
+        <h2 className="slide-title print:text-base">Income Statement</h2>
+        <p className="text-gray-600 print:text-xs">Fiscal Year 2025-2026</p>
       </div>
       
       <IncomeStatement 

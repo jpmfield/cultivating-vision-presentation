@@ -25,7 +25,7 @@ const SlideContainer: React.FC<SlideContainerProps> = ({ children, id, className
         pageBreakInside: 'avoid'
       }}
     >
-      <div className="slide-content bg-white z-10 relative p-4 rounded-md shadow-sm print:shadow-none print:p-2 print:overflow-hidden print:max-h-[200mm]">
+      <div className="slide-content bg-white z-10 relative p-4 print:p-2 print:overflow-hidden print:max-h-[200mm]">
         {children}
       </div>
     </div>
