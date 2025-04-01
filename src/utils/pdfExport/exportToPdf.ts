@@ -27,12 +27,12 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
   // Apply print styles
   const tempStyle = applyPrintStyles();
 
-  for (let i = 0; i < slides.length; i++) {
-    const slide = slides[i] as HTMLElement;
-    
-    console.log(`Processing slide ${i + 1}/${slides.length}`);
-    
-    try {
+  try {
+    for (let i = 0; i < slides.length; i++) {
+      const slide = slides[i] as HTMLElement;
+      
+      console.log(`Processing slide ${i + 1}/${slides.length}`);
+      
       // Create a temporary container with exact A4 landscape dimensions for capturing
       const tempContainer = createTempContainer();
       
@@ -42,6 +42,9 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       // Add to temp container and to body
       tempContainer.appendChild(clonedSlide);
       document.body.appendChild(tempContainer);
+      
+      // Wait briefly for the content to render
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       // Capture the slide as canvas
       const canvas = await captureSlideAsCanvas(tempContainer);
@@ -64,18 +67,17 @@ export const exportToPdf = async (elementId: string, filename: string = 'budget-
       // Add image exactly fitting to A4 page (no stretch/distortion)
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
       console.log(`Slide ${i + 1} added to PDF`);
-      
-    } catch (error) {
-      console.error(`Error capturing slide ${i + 1}:`, error);
     }
+    
+    console.log('PDF export completed, saving file...');
+    pdf.save(filename);
+    console.log('PDF saved successfully!');
+  } catch (error) {
+    console.error('Error during PDF export:', error);
+  } finally {
+    // Remove temporary style element
+    removePrintStyles(tempStyle);
   }
-  
-  // Remove temporary style element
-  removePrintStyles(tempStyle);
-  
-  console.log('PDF export completed, saving file...');
-  pdf.save(filename);
-  console.log('PDF saved successfully!');
 };
 
 /**
@@ -107,6 +109,13 @@ const cloneSlide = (slide: HTMLElement) => {
   clonedSlide.style.overflow = 'hidden';
   clonedSlide.style.boxShadow = 'none';
   clonedSlide.style.borderRadius = '0';
+  
+  // Make sure charts are properly displayed
+  const charts = clonedSlide.querySelectorAll('.recharts-wrapper');
+  charts.forEach(chart => {
+    (chart as HTMLElement).style.overflow = 'visible';
+  });
+  
   return clonedSlide;
 };
 
@@ -123,5 +132,12 @@ const captureSlideAsCanvas = async (element: HTMLElement) => {
     backgroundColor: '#ffffff',
     width: 842, // A4 landscape width in points at 72 DPI
     height: 595, // A4 landscape height in points at 72 DPI
+    onclone: (clonedDoc) => {
+      // Additional manipulation of the cloned document if needed
+      const clonedSlide = clonedDoc.querySelector('.slide-container');
+      if (clonedSlide) {
+        (clonedSlide as HTMLElement).style.transform = 'none';
+      }
+    }
   });
 };

@@ -39,6 +39,9 @@ export const exportEntirePresentation = async (filename: string = 'kuguta-budget
       tempContainer.appendChild(clonedSlide);
       document.body.appendChild(tempContainer);
       
+      // Wait briefly for the content to render
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       // Capture the slide as canvas
       const canvas = await captureSlideAsCanvas(tempContainer);
       
@@ -106,6 +109,13 @@ const cloneSlide = (slide: HTMLElement) => {
   clonedSlide.style.overflow = 'hidden';
   clonedSlide.style.boxShadow = 'none';
   clonedSlide.style.borderRadius = '0';
+  
+  // Make sure charts are properly displayed
+  const charts = clonedSlide.querySelectorAll('.recharts-wrapper');
+  charts.forEach(chart => {
+    (chart as HTMLElement).style.overflow = 'visible';
+  });
+  
   return clonedSlide;
 };
 
@@ -121,6 +131,13 @@ const captureSlideAsCanvas = async (element: HTMLElement) => {
     allowTaint: true,
     backgroundColor: '#ffffff',
     width: 842, // A4 landscape width in points at 72 DPI
-    height: 595, // A4 landscape height in points at 72 DPI
+    height: 595, // A4 landscape height in points at 72 DPI,
+    onclone: (clonedDoc) => {
+      // Additional manipulation of the cloned document if needed
+      const clonedSlide = clonedDoc.querySelector('.slide-container');
+      if (clonedSlide) {
+        (clonedSlide as HTMLElement).style.transform = 'none';
+      }
+    }
   });
 };
