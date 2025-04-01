@@ -13,9 +13,9 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
   height = 300
 }) => {
   return (
-    <div className="mb-8">
-      {title && <h3 className="text-xl font-semibold mb-4">{title}</h3>}
-      <div style={{ height: `${height}px`, width: '100%' }}>
+    <div className="mb-8 print:mb-4">
+      {title && <h3 className="text-xl font-semibold mb-4 print:text-base print:mb-2">{title}</h3>}
+      <div style={{ height: `${height}px`, width: '100%' }} className="print:h-[200px]">
         {children}
       </div>
     </div>

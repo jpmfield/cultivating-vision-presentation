@@ -30,12 +30,12 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
   marketingCosts,
   packingCosts
 }) => {
-  // Calculate totals from given data
-  const totalRevenue = 390225; // Exact value from screenshot
-  const totalVariableCosts = 154219; // COGS value from screenshot
-  const grossProfit = 236006; // Exact value from screenshot
+  // Values taken directly from the provided image
+  const totalRevenue = 390225;
+  const totalVariableCosts = 154219;
+  const grossProfit = 236006;
   
-  // Define operating expenses
+  // Define operating expenses - updated to match the image
   const operatingExpenses = [
     { name: 'Land Levy', value: 18000 },
     { name: 'Wages and salaries', value: 29250 },
@@ -53,24 +53,14 @@ const IncomeStatement: React.FC<IncomeStatementProps> = ({
     { name: 'Service kit', value: 450 },
     { name: 'Legal fees', value: 216 },
     { name: 'Consultancy', value: 7200 },
-    { name: 'Add Sundries', value: 534 },
-    { name: 'Marketing Costs', value: marketingCosts },
-    { name: 'Packing Costs', value: packingCosts }
+    { name: 'Add Sundries', value: 534 }
   ];
   
-  // Calculate the total expenses with the added marketing and packing costs
-  const baseOperatingExpenses = operatingExpenses.reduce((sum, expense) => {
-    // Exclude marketing and packing costs from this calculation to avoid double counting
-    if (expense.name !== 'Marketing Costs' && expense.name !== 'Packing Costs') {
-      return sum + expense.value;
-    }
-    return sum;
-  }, 0);
+  // Total expenses as per the image
+  const totalExpenses = 71971;
   
-  const totalExpenses = baseOperatingExpenses + marketingCosts + packingCosts;
-  
-  // Recalculate operating profit with the new expenses
-  const operatingProfit = grossProfit - totalExpenses;
+  // Operating profit/EBIT as per the image
+  const operatingProfit = 164035;
 
   return (
     <div className="income-statement w-full">
